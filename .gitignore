@@ -1,0 +1,6 @@
+node_modules/
+.idea/
+*.zip
+gh-pages
+notes
+js/master.js

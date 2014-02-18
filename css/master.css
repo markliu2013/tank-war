@@ -1,0 +1,88 @@
+.clearfix:before, .clearfix:after {
+	content: '.';
+	display: block;
+	overflow: hidden;
+	visibility: hidden;
+	font-size: 0;
+	line-height: 0;
+	width: 0;
+	height: 0;
+}
+.clearfix:after {
+	clear: both;
+}
+.clearfix {
+	zoom: 1;
+}
+body {
+	margin: 0;
+	padding: 0;
+	background: #eeeeee;
+	font-family: Arial, sans-serif;
+	font-style: normal;
+	font-weight: 400;
+	font-size: 14px;
+	line-height: 18px;
+	color: #000;
+}
+a {
+	color: #0088cc;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+#page {
+	margin: 0 auto;
+	padding: 50px 0 0 0;
+	width: 960px;
+}
+#tank-grid {
+	float: left;
+	padding: 1px;
+	border: 1px solid #000;
+}
+#tank-grid .row {
+}
+#tank-grid .row .col {
+	float: left;
+	margin: 0 1px 1px 0;
+	width: 10px;
+	height: 10px;
+	background: #fff;
+}
+#tank-grid .row .col.on {
+	background: #000;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

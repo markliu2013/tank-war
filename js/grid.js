@@ -11,6 +11,6 @@ function Grid(rowsNum, colsNum) {
 			}
 			gridHTML += '</div>';
 		}
-		dome.get(gridSelector).html(gridHTML);
+		dome.get("#tank-grid").html(gridHTML);
 	}
 }

@@ -1,7 +1,6 @@
-function Tank(header, direction, grid) {
+function Tank(header, direction) {
 	this.header = header;
 	this.direction = direction;
-	this.grid = grid;
 	//根据头部和方向计算坦克所占的格子
 	this.getDataArr = function() {
 		var dataArr = [this.header];
@@ -34,27 +33,27 @@ function Tank(header, direction, grid) {
 	}
 	this.checkValidation = function() {
 		if (this.direction == 37) { //left
-			if (this.header[0]+2 > this.grid.colsNum || this.header[0] < 1) {
+			if (this.header[0]+2 > gridColsNum || this.header[0] < 1) {
 				return false;
-			} else if (this.header[1] < 2 || this.header[1] > this.grid.rowsNum-1 ) {
+			} else if (this.header[1] < 2 || this.header[1] > gridRowsNum-1 ) {
 				return false;
 			}
 		} else if (this.direction == 38) { //up
-			if (this.header[1]+2 > this.grid.rowsNum || this.header[1] < 1) {
+			if (this.header[1]+2 > gridRowsNum || this.header[1] < 1) {
 				return false;
-			} else if (this.header[0] < 2 || this.header[0] > this.grid.colsNum-1) {
+			} else if (this.header[0] < 2 || this.header[0] > gridColsNum-1) {
 				return false;
 			}
 		} else if (this.direction == 39) { //right
-			if (this.header[0] < 3 || this.header[0] > this.grid.colsNum ) {
+			if (this.header[0] < 3 || this.header[0] > gridColsNum ) {
 				return false;
-			} else if (this.header[1] < 2 || this.header[1] > this.grid.rowsNum-1 ) {
+			} else if (this.header[1] < 2 || this.header[1] > gridRowsNum-1 ) {
 				return false;
 			}
 		} else if (this.direction == 40) { //down
-			if (this.header[1] < 3 || this.header[1] > this.grid.rowsNum) {
+			if (this.header[1] < 3 || this.header[1] > gridRowsNum) {
 				return false;
-			} else if (this.header[0]<2 || this.header[0]>this.grid.colsNum-1) {
+			} else if (this.header[0]<2 || this.header[0]>gridColsNum-1) {
 				return false;
 			}
 		}
@@ -63,13 +62,13 @@ function Tank(header, direction, grid) {
 	this.draw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			dome.get(gridSelector + " .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on");
+			dome.get("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on");
 		}
 	}
 	function removeDraw() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			dome.get(gridSelector + " .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on");
+			dome.get("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on");
 		}
 	}
 	this.moveLeft = function() {
@@ -165,6 +164,33 @@ function Tank(header, direction, grid) {
 				event.preventDefault();
 			}
 		});
+		dome.get(document).on("keyup", function(event) {
+			if (event.keyCode == 32) {
+				thisTank.fire();
+				event.preventDefault();
+			}
+		});
+	}
+	this.fire = function() {
+		var bulletHeader = null;
+		switch (this.direction) {
+			case 37:
+				bulletHeader = [this.header[0]-1,this.header[1]];
+				break;
+			case 38:
+				bulletHeader = [this.header[0],this.header[1]-1];
+				break;
+			case 39:
+				bulletHeader = [this.header[0]+1,this.header[1]];
+				break;
+			case 40:
+				bulletHeader = [this.header[0],this.header[1]+1];
+				break;
+			default :
+				bulletHeader = [this.header[0],this.header[1]];
+		}
+		var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed);
+		bullet.init();
 	}
 }
 

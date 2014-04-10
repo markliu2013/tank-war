@@ -147,30 +147,6 @@ function Tank(header, direction) {
 		}
 		this.draw();
 	}
-	this.keyBoardControl = function() {
-		var thisTank = this;
-		dome.get(document).on("keydown", function(event) {
-			if (event.keyCode == 37) { //left
-				thisTank.moveLeft();
-				event.preventDefault();
-			} else if (event.keyCode == 38) { //up
-				thisTank.moveUp();
-				event.preventDefault();
-			} else if (event.keyCode == 39) { //right
-				thisTank.moveRight();
-				event.preventDefault();
-			} else if (event.keyCode == 40) { //down
-				thisTank.moveDown();
-				event.preventDefault();
-			}
-		});
-		dome.get(document).on("keyup", function(event) {
-			if (event.keyCode == 32) {
-				thisTank.fire();
-				event.preventDefault();
-			}
-		});
-	}
 	this.fire = function() {
 		var bulletHeader = null;
 		switch (this.direction) {

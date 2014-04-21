@@ -38,6 +38,7 @@ function Tank(header, direction) {
 		return dataArr;
 	}
 	this.checkValidation = function() {
+		//edge
 		if (this.direction == 37) { //left
 			if (this.header[0]+2 > gridColsNum || this.header[0] < 1) {
 				return false;
@@ -60,6 +61,14 @@ function Tank(header, direction) {
 			if (this.header[1] < 3 || this.header[1] > gridRowsNum) {
 				return false;
 			} else if (this.header[0]<2 || this.header[0]>gridColsNum-1) {
+				return false;
+			}
+		}
+		//tank
+		var tankDataArr = this.getDataArr();
+		for (var i=0; i<tankDataArr.length; i++) {
+			var coordinate = tankDataArr[i];
+			if (dome.get("#tank-grid .row:nth-child("+coordinate[1]+") .col:nth-child("+coordinate[0]+")").hasClass("on")) {
 				return false;
 			}
 		}
@@ -93,6 +102,7 @@ function Tank(header, direction) {
 		}
 		if (!this.checkValidation()) {
 			this.header = preHeader;
+			this.direction = preDirection;
 		}
 		this.draw();
 	}
@@ -112,6 +122,7 @@ function Tank(header, direction) {
 		}
 		if (!this.checkValidation()) {
 			this.header = preHeader;
+			this.direction = preDirection;
 		}
 		this.draw();
 	}
@@ -131,6 +142,7 @@ function Tank(header, direction) {
 		}
 		if (!this.checkValidation()) {
 			this.header = preHeader;
+			this.direction = preDirection;
 		}
 		this.draw();
 	}
@@ -150,6 +162,7 @@ function Tank(header, direction) {
 		}
 		if (!this.checkValidation()) {
 			this.header = preHeader;
+			this.direction = preDirection;
 		}
 		this.draw();
 	}
@@ -171,6 +184,9 @@ function Tank(header, direction) {
 			default :
 				bulletHeader = [this.header[0],this.header[1]];
 		}
+
+
+
 		var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
 		bullet.init();
 	}

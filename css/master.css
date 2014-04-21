@@ -57,7 +57,9 @@ a:hover {
 #tank-grid .row .col.on.tank.my {
 	background: #f00;
 }
-
+#tank-grid .row .col.on.bull.my {
+	background: #f00;
+}
 
 
 

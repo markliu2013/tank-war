@@ -1,14 +1,6 @@
-if (typeof Array.prototype.indexOf !== 'function') {
-	Array.prototype.indexOf = function (item) {
-		for (var i = 0; i < this.length; i++) {
-			if (this[i] === item) {
-				return i;
-			}
-		}
-		return -1;
-	};
-}
-
+/**
+ * http://net.tutsplus.com/tutorials/javascript-ajax/build-your-first-javascript-library/
+ */
 window.dome = (function () {
 	function Dome(els) {
 		for (var i = 0; i < els.length; i++) {
@@ -76,14 +68,21 @@ window.dome = (function () {
 	Dome.prototype.removeClass = function (clazz) {
 		return this.forEach(function (el) {
 			var cs = el.className.split(' '), i;
-
 			while ((i = cs.indexOf(clazz)) > -1) {
 				cs = cs.slice(0, i).concat(cs.slice(++i));
 			}
 			el.className = cs.join(' ');
 		});
 	};
-
+	Dome.prototype.hasClass = function (clazz) {
+		if(this.length > 0) {
+			if (this[0].className.indexOf(clazz) >= 0) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+	};
 	Dome.prototype.attr = function (attr, val) {
 		if (typeof val !== 'undefined') {
 			return this.forEach(function (el) {

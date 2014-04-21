@@ -1,3 +1,9 @@
+/**
+ * Class Tank
+ * @param header
+ * @param direction
+ * @constructor
+ */
 function Tank(header, direction) {
 	this.header = header;
 	this.direction = direction;
@@ -62,19 +68,19 @@ function Tank(header, direction) {
 	this.draw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			dome.get("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on");
+			dome.get("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
 		}
 	}
-	function removeDraw() {
+	this.removeDraw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			dome.get("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on");
+			dome.get("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on").removeClass("tank");
 		}
 	}
 	this.moveLeft = function() {
 		var preHeader = this.header;
 		var preDirection = this.direction;
-		removeDraw.call(this);//通过call改变this指向。removeDraw()默认调用，this会指向window
+		this.removeDraw();
 		this.direction = 37;
 		if (preDirection == 37) {
 			this.header = [preHeader[0]-1, preHeader[1]];
@@ -93,7 +99,7 @@ function Tank(header, direction) {
 	this.moveUp = function() {
 		var preHeader = this.header;
 		var preDirection = this.direction;
-		removeDraw.call(this);
+		this.removeDraw();
 		this.direction = 38;
 		if (preDirection == 38) {
 			this.header = [preHeader[0], preHeader[1]-1];
@@ -112,7 +118,7 @@ function Tank(header, direction) {
 	this.moveRight = function() {
 		var preHeader = this.header;
 		var preDirection = this.direction;
-		removeDraw.call(this);
+		this.removeDraw();
 		this.direction = 39;
 		if (preDirection == 39) {
 			this.header = [preHeader[0]+1, preHeader[1]];
@@ -131,7 +137,7 @@ function Tank(header, direction) {
 	this.moveDown = function() {
 		var preHeader = this.header;
 		var preDirection = this.direction;
-		removeDraw.call(this);
+		this.removeDraw();
 		this.direction = 40;
 		if (preDirection == 40) {
 			this.header = [preHeader[0], preHeader[1]+1];
@@ -165,7 +171,7 @@ function Tank(header, direction) {
 			default :
 				bulletHeader = [this.header[0],this.header[1]];
 		}
-		var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed);
+		var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
 		bullet.init();
 	}
 }

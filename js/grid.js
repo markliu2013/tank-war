@@ -1,3 +1,9 @@
+/**
+ * Class Grid
+ * @param rowsNum
+ * @param colsNum
+ * @constructor
+ */
 function Grid(rowsNum, colsNum) {
 	this.rowsNum = rowsNum;
 	this.colsNum = colsNum;
@@ -12,5 +18,8 @@ function Grid(rowsNum, colsNum) {
 			gridHTML += '</div>';
 		}
 		dome.get("#tank-grid").html(gridHTML);
+	}
+	this.init = function() {
+		this.draw();
 	}
 }

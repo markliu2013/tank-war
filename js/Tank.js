@@ -184,11 +184,17 @@ function Tank(header, direction) {
 			default :
 				bulletHeader = [this.header[0],this.header[1]];
 		}
+		var bullDome = dome.get("#tank-grid .row:nth-child("+bulletHeader[1]+") .col:nth-child("+bulletHeader[0]+")");
+		if (bullDome.hasClass("on")) {
+			if (bullDome.hasClass("tank")) {
+				var tank = tankContainer.checkWhichTank(bulletHeader);
+				tank.removeDraw();
+			}
+		} else {
+			var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
+			bullet.init();
+		}
 
-
-
-		var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
-		bullet.init();
 	}
 }
 

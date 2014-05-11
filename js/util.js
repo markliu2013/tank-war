@@ -1,6 +1,6 @@
 var gridRowsNum = 50;
 var gridColsNum = 50;
-var bulletSpeed = 20; //the millisecond to move a grid
+var bulletSpeed = 10; //the millisecond to move a grid
 
 /**
  * check if the two coordinates is the same

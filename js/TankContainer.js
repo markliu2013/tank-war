@@ -6,7 +6,6 @@ function TankContainer() {
 			var tank = this.tanks[i];
 			var tankArr = tank.getDataArr();
 			for (var j=0; j<tankArr.length; j++) {
-				console.log(coordinate)
 				if (checkEqual(coordinate, tankArr[j])) {
 					this.tanks.splice(i,1);
 					return tank;

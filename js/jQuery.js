@@ -1,33 +1,46 @@
-/**
- * http://net.tutsplus.com/tutorials/javascript-ajax/build-your-first-javascript-library/
- */
-window.dome = (function () {
-	function Dome(els) {
-		for (var i = 0; i < els.length; i++) {
-			this[i] = els[i];
-		}
-		this.length = els.length;
-	}
+(function(window, undefined) {
 
-// ========= UTILS =========
-	Dome.prototype.forEach = function (callback) {
-		this.map(callback);
-		return this;
-	};
-	Dome.prototype.map = function (callback) {
+	var jQuery = function(selector) {
+		return new jQuery.fn.init(selector);
+	}
+	jQuery.fn = jQuery.prototype = {
+		init: function(selector) {
+			var els;
+			if (typeof selector === 'string') {
+				els = document.querySelectorAll(selector);
+			} else if (selector.length) {
+				els = selector;
+			} else {
+				els = [selector];
+			}
+			for (var i = 0; i < els.length; i++) {
+				this[i] = els[i];
+			}
+			this.length = els.length;
+			return this;
+		}
+	}
+	jQuery.fn.init.prototype = jQuery.fn;
+
+	jQuery.prototype.map = function(callback) {
 		var results = [];
 		for (var i = 0; i < this.length; i++) {
 			results.push(callback.call(this, this[i], i));
 		}
-		return results; //.length > 1 ? results : results[0];
+		return results;
 	};
-	Dome.prototype.mapOne = function (callback) {
+
+	jQuery.prototype.forEach = function (callback) {
+		this.map(callback);
+		return this;
+	};
+
+	jQuery.prototype.mapOne = function (callback) {
 		var m = this.map(callback);
 		return m.length > 1 ? m : m[0];
 	};
 
-// ========== DOM MANIPULATION ==========
-	Dome.prototype.text = function (text) {
+	jQuery.prototype.text = function (text) {
 		if (typeof text !== "undefined") {
 			return this.forEach(function (el) {
 				el.innerText = text;
@@ -38,8 +51,7 @@ window.dome = (function () {
 			});
 		}
 	};
-
-	Dome.prototype.html = function (html) {
+	jQuery.prototype.html = function (html) {
 		if (typeof html !== "undefined") {
 			return this.forEach(function (el) {
 				el.innerHTML = html;
@@ -50,8 +62,7 @@ window.dome = (function () {
 			});
 		}
 	};
-
-	Dome.prototype.addClass = function (classes) {
+	jQuery.prototype.addClass = function (classes) {
 		var className = "";
 		if (typeof classes !== 'string') {
 			for (var i = 0; i < classes.length; i++) {
@@ -65,7 +76,7 @@ window.dome = (function () {
 		});
 	};
 
-	Dome.prototype.removeClass = function (clazz) {
+	jQuery.prototype.removeClass = function (clazz) {
 		return this.forEach(function (el) {
 			var cs = el.className.split(' '), i;
 			while ((i = cs.indexOf(clazz)) > -1) {
@@ -74,7 +85,7 @@ window.dome = (function () {
 			el.className = cs.join(' ');
 		});
 	};
-	Dome.prototype.hasClass = function (clazz) {
+	jQuery.prototype.hasClass = function (clazz) {
 		if(this.length > 0) {
 			if (this[0].className.indexOf(clazz) >= 0) {
 				return true;
@@ -83,7 +94,7 @@ window.dome = (function () {
 			}
 		}
 	};
-	Dome.prototype.attr = function (attr, val) {
+	jQuery.prototype.attr = function (attr, val) {
 		if (typeof val !== 'undefined') {
 			return this.forEach(function (el) {
 				el.setAttribute(attr, val);
@@ -95,7 +106,7 @@ window.dome = (function () {
 		}
 	};
 
-	Dome.prototype.append = function (els) {
+	jQuery.prototype.append = function (els) {
 		return this.forEach(function (parEl, i) {
 			els.forEach(function (childEl) {
 				parEl.appendChild((i > 0) ? childEl.cloneNode(true) : childEl);
@@ -103,7 +114,7 @@ window.dome = (function () {
 		});
 	};
 
-	Dome.prototype.prepend = function (els) {
+	jQuery.prototype.prepend = function (els) {
 		return this.forEach(function (parEl, i) {
 			for (var j = els.length - 1; j > -1; j--) {
 				parEl.insertBefore((i > 0) ? els[j].cloneNode(true) : els[j], parEl.firstChild);
@@ -111,13 +122,13 @@ window.dome = (function () {
 		});
 	};
 
-	Dome.prototype.remove = function () {
+	jQuery.prototype.remove = function () {
 		return this.forEach(function (el) {
 			return el.parentNode.removeChild(el);
 		});
 	};
 
-	Dome.prototype.on = (function () {
+	jQuery.prototype.on = (function () {
 		if (document.addEventListener) {
 			return function (evt, fn) {
 				return this.forEach(function (el) {
@@ -139,7 +150,7 @@ window.dome = (function () {
 		}
 	}());
 
-	Dome.prototype.off = (function () {
+	jQuery.prototype.off = (function () {
 		if (document.removeEventListener) {
 			return function (evt, fn) {
 				return this.forEach(function (el) {
@@ -161,37 +172,6 @@ window.dome = (function () {
 		}
 	}());
 
-	var dome = {
-		get: function (selector) {
-			var els;
-			if (typeof selector === 'string') {
-				els = document.querySelectorAll(selector);
-			} else if (selector.length) {
-				els = selector;
-			} else {
-				els = [selector];
-			}
-			return new Dome(els);
-		},
-		create: function (tagName, attrs) {
-			var el = new Dome([document.createElement(tagName)]);
-			if (attrs) {
-				if (attrs.className) {
-					el.addClass(attrs.className);
-					delete attrs.className;
-				}
-				if (attrs.text) {
-					el.text(attrs.text);
-					delete attrs.text;
-				}
-				for (var key in attrs) {
-					if (attrs.hasOwnProperty(key)) {
-						el.attr(key, attrs[key]);
-					}
-				}
-			}
-			return el;
-		}
-	};
-	return dome;
-}());
+	window.jQuery = window.$ = jQuery;
+
+})( window );

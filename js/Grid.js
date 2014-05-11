@@ -17,7 +17,7 @@ function Grid(rowsNum, colsNum) {
 			}
 			gridHTML += '</div>';
 		}
-		dome.get("#tank-grid").html(gridHTML);
+		jQuery("#tank-grid").html(gridHTML);
 	}
 	this.init = function() {
 		this.draw();

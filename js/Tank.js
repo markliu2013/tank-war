@@ -7,6 +7,7 @@
 function Tank(header, direction) {
 	this.header = header;
 	this.direction = direction;
+	this.status = true;// alive or die, true is alive, false is die.
 	//根据头部和方向计算坦克所占的格子
 	this.getDataArr = function() {
 		var dataArr = [this.header];
@@ -68,22 +69,24 @@ function Tank(header, direction) {
 		var tankDataArr = this.getDataArr();
 		for (var i=0; i<tankDataArr.length; i++) {
 			var coordinate = tankDataArr[i];
-			if (dome.get("#tank-grid .row:nth-child("+coordinate[1]+") .col:nth-child("+coordinate[0]+")").hasClass("on")) {
+			if (jQuery("#tank-grid .row:nth-child("+coordinate[1]+") .col:nth-child("+coordinate[0]+")").hasClass("on")) {
 				return false;
 			}
 		}
 		return true;
 	}
 	this.draw = function() {
-		var dataArr = this.getDataArr();
-		for(var i=0; i<dataArr.length; i++) {
-			dome.get("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
+		if (this.status) {
+			var dataArr = this.getDataArr();
+			for(var i=0; i<dataArr.length; i++) {
+				jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
+			}
 		}
 	}
 	this.removeDraw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			dome.get("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on").removeClass("tank");
+			jQuery("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on").removeClass("tank");
 		}
 	}
 	this.moveLeft = function() {
@@ -184,7 +187,7 @@ function Tank(header, direction) {
 			default :
 				bulletHeader = [this.header[0],this.header[1]];
 		}
-		var bullDome = dome.get("#tank-grid .row:nth-child("+bulletHeader[1]+") .col:nth-child("+bulletHeader[0]+")");
+		var bullDome = jQuery("#tank-grid .row:nth-child("+bulletHeader[1]+") .col:nth-child("+bulletHeader[0]+")");
 		if (bullDome.hasClass("on")) {
 			if (bullDome.hasClass("tank")) {
 				var tank = tankContainer.checkWhichTank(bulletHeader);
@@ -193,8 +196,13 @@ function Tank(header, direction) {
 		} else {
 			var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
 			bullet.init();
+			bulletContainer.bullets.push(bullet);
 		}
 
+	}
+	this.destroy = function() {
+		this.removeDraw();
+		this.status = false;
 	}
 }
 

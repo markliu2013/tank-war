@@ -1,9 +1,11 @@
 var grid = new Grid(gridRowsNum, gridColsNum);
 grid.init();
 var tankContainer = new TankContainer();
-var tank = new MyTank([15,15], 39);
+var bulletContainer = new BulletContainer();
+var tank = new MyTank([2,3], 40);
 tank.init();
-var tank2 = new NPCTank([45,45], 39);
+var tank2 = new NPCTank([2,gridRowsNum-2], 38);
 tank2.init();
+tank2.fire();
 tankContainer.tanks.push(tank);
 tankContainer.tanks.push(tank2);

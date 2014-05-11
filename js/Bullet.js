@@ -34,203 +34,83 @@ function Bullet(coordinate, direction, speed, tank) {
 				break;
 		}
 	}
+
+	function moveCheck(nextBullDome, preBullDome) {
+		if (nextBullDome.hasClass("on")) {
+			if (nextBullDome.hasClass("tank")) {
+				var tank = tankContainer.checkWhichTank(this.coordinate);
+				tank.destroy();
+				preBullDome.removeClass("on").removeClass("bull");
+				if (this.tank.constructor == MyTank) {
+					preBullDome.removeClass("my");
+				}
+				this.destroy();
+			} else if (nextBullDome.hasClass("bull")) {
+				if (nextBullDome.hasClass("stopped")) {
+					preBullDome.removeClass("on").removeClass("bull");
+					if (this.tank.constructor == MyTank) {
+						preBullDome.removeClass("my");
+					}
+					this.destroy();
+				} else {
+					preBullDome.addClass("stopped");
+					clearInterval(this.moveThread);
+					this.status = false;
+				}
+			}
+		} else {
+			preBullDome.removeClass("on").removeClass("bull");
+			nextBullDome.addClass("on bull");
+			if (this.tank.constructor == MyTank) {
+				preBullDome.removeClass("my");
+				nextBullDome.addClass("my");
+			}
+		}
+	}
+
 	function moveUp() {
 		if (this.coordinate[1]-1<0) {
 			this.destroy();
 			return;
 		}
-		if (this.tank.constructor == MyTank) {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-			this.coordinate = [this.coordinate[0], this.coordinate[1]-1];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.destroy();
-					this.destroy();
-				} else if (nextBullDome.hasClass("bull")) {
-					var bullet = bulletContainer.checkWhichBullet(this.coordinate);
-					clearInterval(bullet.moveThread);
-					this.destroy();
-				}
-				return;
-			} else {
-				nextBullDome.addClass("on bull my");
-			}
-		} else {
-			var preCoordinate = this.coordinate;
-			var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")")
-			this.coordinate = [this.coordinate[0], this.coordinate[1]-1];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.destroy();
-					this.destroy();
-					jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")").removeClass("on").removeClass("bull");
-				} else if (nextBullDome.hasClass("bull")) {
-					if (nextBullDome.hasClass("stopped")) {
-						this.destroy();
-						jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-					} else {
-						preBullDome.addClass("stopped");
-						clearInterval(this.moveThread);
-						this.status = false;
-					}
-				}
-			} else {
-				preBullDome.removeClass("on").removeClass("bull");
-				nextBullDome.addClass("on bull");
-			}
-		}
+		var preCoordinate = this.coordinate;
+		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		this.coordinate = [this.coordinate[0], this.coordinate[1]-1];
+		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveDown() {
 		if (this.coordinate[1]+1>gridRowsNum+1) {
 			this.destroy();
 			return;
 		}
-		if (this.tank.constructor == MyTank) {
-			var preCoordinate = this.coordinate;
-			var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")")
-			this.coordinate = [this.coordinate[0], this.coordinate[1]+1];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.destroy();
-					this.destroy();
-					jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-				} else if (nextBullDome.hasClass("bull")) {
-					if (nextBullDome.hasClass("stopped")) {
-						this.destroy();
-						jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-					} else {
-						preBullDome.addClass("stopped");
-						clearInterval(this.moveThread);
-						this.status = false;
-					}
-				}
-				return;
-			} else {
-				preBullDome.removeClass("on").removeClass("bull").removeClass("my");
-				nextBullDome.addClass("on bull my");
-			}
-		} else {
-			var preCoordinate = this.coordinate;
-			var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")")
-			this.coordinate = [this.coordinate[0], this.coordinate[1]+1];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.destroy();
-					this.destroy();
-					jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")").removeClass("on").removeClass("bull");
-				} else if (nextBullDome.hasClass("bull")) {
-					if (nextBullDome.hasClass("stopped")) {
-						this.destroy();
-					} else {
-						preBullDome.addClass("stopped");
-						clearInterval(this.moveThread);
-						this.status = false;
-					}
-				}
-				return;
-			} else {
-				preBullDome.removeClass("on").removeClass("bull");
-				nextBullDome.addClass("on bull");
-			}
-		}
+		var preCoordinate = this.coordinate;
+		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		this.coordinate = [this.coordinate[0], this.coordinate[1]+1];
+		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveLeft() {
 		if (this.coordinate[0]-1<0) {
 			this.destroy();
 			return;
 		}
-		if (this.tank.constructor == MyTank) {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-			this.coordinate = [this.coordinate[0]-1, this.coordinate[1]];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				clearInterval(this.moveThread);
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.removeDraw();
-					tank.status = false;
-				} else if (nextBullDome.hasClass("bull")) {
-					var bullet = bulletContainer.checkWhichBullet(this.coordinate);
-					clearInterval(bullet.moveThread);
-					this.destroy();
-				}
-				return;
-			} else {
-				nextBullDome.addClass("on bull my");
-			}
-		} else {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull");
-			this.coordinate = [this.coordinate[0]-1, this.coordinate[1]];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				clearInterval(this.moveThread);
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.removeDraw();
-					tank.status = false;
-				} else if (nextBullDome.hasClass("bull")) {
-					var bullet = bulletContainer.checkWhichBullet(this.coordinate);
-					clearInterval(bullet.moveThread);
-					this.destroy();
-				}
-				return;
-			} else {
-				nextBullDome.addClass("on bull");
-			}
-		}
+		var preCoordinate = this.coordinate;
+		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		this.coordinate = [this.coordinate[0]-1, this.coordinate[1]];
+		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveRight() {
 		if (this.coordinate[0]+1>gridColsNum+1) {
 			this.destroy();
 			return;
 		}
-		if (this.tank.constructor == MyTank) {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull").removeClass("my");
-			this.coordinate = [this.coordinate[0]+1, this.coordinate[1]];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				clearInterval(this.moveThread);
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.removeDraw();
-					tank.status = false;
-				} else if (nextBullDome.hasClass("bull")) {
-					var bullet = bulletContainer.checkWhichBullet(this.coordinate);
-					clearInterval(bullet.moveThread);
-					this.destroy();
-				}
-				return;
-			} else {
-				nextBullDome.addClass("on bull my");
-			}
-		} else {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull");
-			this.coordinate = [this.coordinate[0]+1, this.coordinate[1]];
-			var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
-			if (nextBullDome.hasClass("on")) {
-				clearInterval(this.moveThread);
-				if (nextBullDome.hasClass("tank")) {
-					var tank = tankContainer.checkWhichTank(this.coordinate);
-					tank.removeDraw();
-					tank.status = false;
-				} else if (nextBullDome.hasClass("bull")) {
-					var bullet = bulletContainer.checkWhichBullet(this.coordinate);
-					clearInterval(bullet.moveThread);
-					this.destroy();
-				}
-				return;
-			} else {
-				nextBullDome.addClass("on bull");
-			}
-		}
+		var preCoordinate = this.coordinate;
+		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		this.coordinate = [this.coordinate[0]+1, this.coordinate[1]];
+		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 
 	this.destroy = function() {

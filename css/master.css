@@ -60,7 +60,52 @@ a:hover {
 #tank-grid .row .col.on.bull.my {
 	background: #f00;
 }
-
+#control-panel {
+	float: right;
+	padding: 20px 10px 0 10px;
+	width: 250px;
+	height: 500px;
+	border: 1px solid #000;
+}
+h2 {
+	margin: 0 0 30px 0;
+	text-align: center;
+	font-size: 30px;
+}
+#control-panel .row {
+	margin-bottom: 10px;
+}
+#control-panel .score {
+	margin-bottom: 20px;
+}
+#control-panel .score span {
+	display: block;
+	float: left;
+	margin-right: 10px;
+}
+#control-panel .score strong {
+	display: block;
+	float: left;
+	font-size: 50px;
+	color: #f00;
+}
+#control-panel .buttons .btn {
+	display: block;
+	float: left;
+	padding: 0 10px;
+	background: #000;
+	color: #fff;
+	border-radius: 5px;
+	text-decoration: none;
+}
+#control-panel .buttons .btn.disabled {
+	background: #333;
+	cursor: default;
+}
+#pause-game {
+	margin-left: 10px;
+	margin-right: 10px;
+}
 
 
 

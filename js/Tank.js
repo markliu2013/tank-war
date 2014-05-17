@@ -196,7 +196,6 @@ function Tank(header, direction) {
 		} else {
 			var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
 			bullet.init();
-			bulletContainer.bullets.push(bullet);
 		}
 
 	}

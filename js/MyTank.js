@@ -7,11 +7,9 @@
 function MyTank(header, direction) {
 	Tank.call(this, header, direction);
 	this.draw = function() {
-		if (this.status) {
-			var dataArr = this.getDataArr();
-			for(var i=0; i<dataArr.length; i++) {
-				jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank my");
-			}
+		var dataArr = this.getDataArr();
+		for(var i=0; i<dataArr.length; i++) {
+			jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank my");
 		}
 	}
 	this.removeDraw = function() {

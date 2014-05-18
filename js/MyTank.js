@@ -1,11 +1,11 @@
 /**
  * Player's tank, extends from base Tank
- * @param header
+ * @param heart
  * @param direction
  * @constructor
  */
-function MyTank(header, direction) {
-	Tank.call(this, header, direction);
+function MyTank(heart, direction) {
+	Tank.call(this, heart, direction);
 	this.draw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {

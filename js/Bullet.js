@@ -13,6 +13,7 @@ function Bullet(coordinate, direction, speed, tank) {
 	this.tank = tank;
 	this.moveThread = null;
 	this.status = true;// alive or die, true is alive, false is die.
+
 	this.init = function() {
 		jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").addClass("on bull");
 		if (this.tank.constructor == MyTank) {
@@ -38,7 +39,7 @@ function Bullet(coordinate, direction, speed, tank) {
 	function moveCheck(nextBullDome, preBullDome) {
 		if (nextBullDome.hasClass("on")) {
 			if (nextBullDome.hasClass("tank")) {
-				var tank = tankContainer.checkWhichTank(this.coordinate);
+				var tank = game.tankContainer.checkWhichTank(this.coordinate);
 				tank.destroy();
 				preBullDome.removeClass("on").removeClass("bull");
 				if (this.tank.constructor == MyTank) {
@@ -69,7 +70,7 @@ function Bullet(coordinate, direction, speed, tank) {
 	}
 
 	function moveUp() {
-		if (this.coordinate[1]-1<0) {
+		if (this.coordinate[1]-1 < 0) {
 			this.destroy();
 			return;
 		}
@@ -80,7 +81,7 @@ function Bullet(coordinate, direction, speed, tank) {
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveDown() {
-		if (this.coordinate[1]+1>gridRowsNum+1) {
+		if (this.coordinate[1]+1 > gridRowsNum+1) {
 			this.destroy();
 			return;
 		}
@@ -91,7 +92,7 @@ function Bullet(coordinate, direction, speed, tank) {
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveLeft() {
-		if (this.coordinate[0]-1<0) {
+		if (this.coordinate[0]-1 < 0) {
 			this.destroy();
 			return;
 		}
@@ -102,7 +103,7 @@ function Bullet(coordinate, direction, speed, tank) {
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveRight() {
-		if (this.coordinate[0]+1>gridColsNum+1) {
+		if (this.coordinate[0]+1 > gridColsNum+1) {
 			this.destroy();
 			return;
 		}

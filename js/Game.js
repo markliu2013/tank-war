@@ -14,10 +14,13 @@ function Game() {
 	}
 	this.startNew = function() {
 		this.tankContainer = new TankContainer();
-		var tank = new MyTank([Math.ceil(gridColsNum/2),Math.ceil(gridRowsNum/2+1)], getRandomNum(37, 40));
+		var tank = new MyTank([2,2], 40);
 		tank.init();
 		this.tankContainer.tanks.push(tank);
-		var tank2 = new NPCTank()
+		var tank2 = new NPCTank([2,gridRowsNum-1], 38);
+		tank2.init();
+		tank2.fire();
+		this.tankContainer.tanks.push(tank2);
 		$('#pause-game').removeClass('disabled');
 		$('#stop-game').removeClass('disabled');
 	}

@@ -1,69 +1,47 @@
 /**
  * Class Tank
- * @param header
+ * @param heart
  * @param direction
  * @constructor
  */
-function Tank(header, direction) {
-	this.header = header;
+function Tank(heart, direction) {
+	this.heart = heart;
 	this.direction = direction;
 	this.status = true;// alive or die, true is alive, false is die.
-	//根据头部和方向计算坦克所占的格子
+	//根据中心和方向计算坦克所占的格子
 	this.getDataArr = function() {
-		var dataArr = [this.header];
+		var dataArr = [this.heart];
 		if (this.direction == 37) { //left
-			dataArr.push([this.header[0]+1, this.header[1]-1]);
-			dataArr.push([this.header[0]+1, this.header[1]]);
-			dataArr.push([this.header[0]+1, this.header[1]+1]);
-			dataArr.push([this.header[0]+2, this.header[1]-1]);
-			dataArr.push([this.header[0]+2, this.header[1]+1]);
+			dataArr.push([this.heart[0]-1, this.heart[1]]);
+			dataArr.push([this.heart[0], this.heart[1]-1]);
+			dataArr.push([this.heart[0], this.heart[1]+1]);
+			dataArr.push([this.heart[0]+1, this.heart[1]-1]);
+			dataArr.push([this.heart[0]+1, this.heart[1]+1]);
 		} else if (this.direction == 38) { //up
-			dataArr.push([this.header[0]-1, this.header[1]+1]);
-			dataArr.push([this.header[0], this.header[1]+1]);
-			dataArr.push([this.header[0]+1, this.header[1]+1]);
-			dataArr.push([this.header[0]-1, this.header[1]+2]);
-			dataArr.push([this.header[0]+1, this.header[1]+2]);
+			dataArr.push([this.heart[0], this.heart[1]-1]);
+			dataArr.push([this.heart[0]-1, this.heart[1]]);
+			dataArr.push([this.heart[0]+1, this.heart[1]]);
+			dataArr.push([this.heart[0]-1, this.heart[1]+1]);
+			dataArr.push([this.heart[0]+1, this.heart[1]+1]);
 		} else if (this.direction == 39) { //right
-			dataArr.push([this.header[0]-1, this.header[1]-1]);
-			dataArr.push([this.header[0]-1, this.header[1]]);
-			dataArr.push([this.header[0]-1, this.header[1]+1]);
-			dataArr.push([this.header[0]-2, this.header[1]-1]);
-			dataArr.push([this.header[0]-2, this.header[1]+1]);
+			dataArr.push([this.heart[0]+1, this.heart[1]]);
+			dataArr.push([this.heart[0], this.heart[1]-1]);
+			dataArr.push([this.heart[0], this.heart[1]+1]);
+			dataArr.push([this.heart[0]-1, this.heart[1]-1]);
+			dataArr.push([this.heart[0]-1, this.heart[1]+1]);
 		} else if (this.direction == 40) { //down
-			dataArr.push([this.header[0]-1, this.header[1]-1]);
-			dataArr.push([this.header[0], this.header[1]-1]);
-			dataArr.push([this.header[0]+1, this.header[1]-1]);
-			dataArr.push([this.header[0]-1, this.header[1]-2]);
-			dataArr.push([this.header[0]+1, this.header[1]-2]);
+			dataArr.push([this.heart[0], this.heart[1]+1]);
+			dataArr.push([this.heart[0]-1, this.heart[1]]);
+			dataArr.push([this.heart[0]+1, this.heart[1]]);
+			dataArr.push([this.heart[0]-1, this.heart[1]-1]);
+			dataArr.push([this.heart[0]+1, this.heart[1]-1]);
 		}
 		return dataArr;
 	}
 	this.checkValidation = function() {
 		//edge
-		if (this.direction == 37) { //left
-			if (this.header[0]+2 > gridColsNum || this.header[0] < 1) {
-				return false;
-			} else if (this.header[1] < 2 || this.header[1] > gridRowsNum-1 ) {
-				return false;
-			}
-		} else if (this.direction == 38) { //up
-			if (this.header[1]+2 > gridRowsNum || this.header[1] < 1) {
-				return false;
-			} else if (this.header[0] < 2 || this.header[0] > gridColsNum-1) {
-				return false;
-			}
-		} else if (this.direction == 39) { //right
-			if (this.header[0] < 3 || this.header[0] > gridColsNum ) {
-				return false;
-			} else if (this.header[1] < 2 || this.header[1] > gridRowsNum-1 ) {
-				return false;
-			}
-		} else if (this.direction == 40) { //down
-			if (this.header[1] < 3 || this.header[1] > gridRowsNum) {
-				return false;
-			} else if (this.header[0]<2 || this.header[0]>gridColsNum-1) {
-				return false;
-			}
+		if (this.heart[0] <= 1 || this.heart[0] >= gridColsNum || this.heart[1] <= 1 || this.heart[1] >= gridRowsNum) {
+			return false;
 		}
 		//tank
 		var tankDataArr = this.getDataArr();
@@ -76,11 +54,9 @@ function Tank(header, direction) {
 		return true;
 	}
 	this.draw = function() {
-		if (this.status) {
-			var dataArr = this.getDataArr();
-			for(var i=0; i<dataArr.length; i++) {
-				jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
-			}
+		var dataArr = this.getDataArr();
+		for(var i=0; i<dataArr.length; i++) {
+			jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
 		}
 	}
 	this.removeDraw = function() {
@@ -90,114 +66,89 @@ function Tank(header, direction) {
 		}
 	}
 	this.moveLeft = function() {
-		var preHeader = this.header;
+		var preHeart = this.heart;
 		var preDirection = this.direction;
 		this.removeDraw();
 		this.direction = 37;
 		if (preDirection == 37) {
-			this.header = [preHeader[0]-1, preHeader[1]];
-		} else if (preDirection == 39) {
-			this.header = [preHeader[0]-2, preHeader[1]];
-		} else if (preDirection == 38) {
-			this.header = [preHeader[0]-1, preHeader[1]+1];
-		} else if (preDirection == 40) {
-			this.header = [preHeader[0]-1, preHeader[1]-1];
+			this.heart = [preHeart[0]-1, preHeart[1]];
 		}
 		if (!this.checkValidation()) {
-			this.header = preHeader;
+			this.heart = preHeart;
 			this.direction = preDirection;
 		}
 		this.draw();
 	}
 	this.moveUp = function() {
-		var preHeader = this.header;
+		var preHeart = this.heart;
 		var preDirection = this.direction;
 		this.removeDraw();
 		this.direction = 38;
 		if (preDirection == 38) {
-			this.header = [preHeader[0], preHeader[1]-1];
-		} else if (preDirection == 40) {
-			this.header = [preHeader[0], preHeader[1]-2];
-		} else if (preDirection == 37) {
-			this.header = [preHeader[0]+1, preHeader[1]-1];
-		} else if (preDirection == 39) {
-			this.header = [preHeader[0]-1, preHeader[1]-1];
+			this.heart = [preHeart[0], preHeart[1]-1];
 		}
 		if (!this.checkValidation()) {
-			this.header = preHeader;
+			this.heart = preHeart;
 			this.direction = preDirection;
 		}
 		this.draw();
 	}
 	this.moveRight = function() {
-		var preHeader = this.header;
+		var preHeart = this.heart;
 		var preDirection = this.direction;
 		this.removeDraw();
 		this.direction = 39;
 		if (preDirection == 39) {
-			this.header = [preHeader[0]+1, preHeader[1]];
-		} else if (preDirection == 37) {
-			this.header = [preHeader[0]+2, preHeader[1]];
-		} else if (preDirection == 38) {
-			this.header = [preHeader[0]+1, preHeader[1]+1];
-		} else if (preDirection == 40) {
-			this.header = [preHeader[0]+1, preHeader[1]-1];
+			this.heart = [preHeart[0]+1, preHeart[1]];
 		}
 		if (!this.checkValidation()) {
-			this.header = preHeader;
+			this.heart = preHeart;
 			this.direction = preDirection;
 		}
 		this.draw();
 	}
 	this.moveDown = function() {
-		var preHeader = this.header;
+		var preHeart = this.heart;
 		var preDirection = this.direction;
 		this.removeDraw();
 		this.direction = 40;
 		if (preDirection == 40) {
-			this.header = [preHeader[0], preHeader[1]+1];
-		} else if (preDirection == 38) {
-			this.header = [preHeader[0], preHeader[1]+2];
-		} else if (preDirection == 37) {
-			this.header = [preHeader[0]+1, preHeader[1]+1];
-		} else if (preDirection == 39) {
-			this.header = [preHeader[0]-1, preHeader[1]+1];
+			this.heart = [preHeart[0], preHeart[1]+1];
 		}
 		if (!this.checkValidation()) {
-			this.header = preHeader;
+			this.heart = preHeart;
 			this.direction = preDirection;
 		}
 		this.draw();
 	}
 	this.fire = function() {
-		var bulletHeader = null;
+		var bulletCoordinate = null;
 		switch (this.direction) {
 			case 37:
-				bulletHeader = [this.header[0]-1,this.header[1]];
+				bulletCoordinate = [this.heart[0]-2,this.heart[1]];
 				break;
 			case 38:
-				bulletHeader = [this.header[0],this.header[1]-1];
+				bulletCoordinate = [this.heart[0],this.heart[1]-2];
 				break;
 			case 39:
-				bulletHeader = [this.header[0]+1,this.header[1]];
+				bulletCoordinate = [this.heart[0]+2,this.heart[1]];
 				break;
 			case 40:
-				bulletHeader = [this.header[0],this.header[1]+1];
+				bulletCoordinate = [this.heart[0],this.heart[1]+2];
 				break;
 			default :
-				bulletHeader = [this.header[0],this.header[1]];
+				bulletCoordinate = [this.heart[0]-2,this.heart[1]];
 		}
-		var bullDome = jQuery("#tank-grid .row:nth-child("+bulletHeader[1]+") .col:nth-child("+bulletHeader[0]+")");
-		if (bullDome.hasClass("on")) {
-			if (bullDome.hasClass("tank")) {
-				var tank = tankContainer.checkWhichTank(bulletHeader);
-				tank.removeDraw();
+		var bullDom = jQuery("#tank-grid .row:nth-child("+bulletCoordinate[1]+") .col:nth-child("+bulletCoordinate[0]+")");
+		if (bullDom.hasClass("on")) {
+			if (bullDom.hasClass("tank")) {
+				var tank = game.tankContainer.checkWhichTank(bulletCoordinate);
+				tank.destroy();
 			}
 		} else {
-			var bullet = new Bullet(bulletHeader, this.direction, bulletSpeed, this);
+			var bullet = new Bullet(bulletCoordinate, this.direction, bulletSpeed, this);
 			bullet.init();
 		}
-
 	}
 	this.destroy = function() {
 		this.removeDraw();

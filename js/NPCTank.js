@@ -1,11 +1,11 @@
 /**
  * Computer's Tank, extends from base Tank
- * @param header
+ * @param heart
  * @param direction
  * @constructor
  */
-function NPCTank(header, direction) {
-	Tank.call(this, header, direction);
+function NPCTank(heart, direction) {
+	Tank.call(this, heart, direction);
 	this.thread = null;
 
 	this.init = function() {
@@ -14,7 +14,7 @@ function NPCTank(header, direction) {
 }
 NPCTank.prototype.getRandTank = function() {
 	var dir = getRandomNum(37,40);
-	var header = [];
+	var heart = [];
 	switch (dir) {
 		case 37:
 			break;
@@ -27,5 +27,5 @@ NPCTank.prototype.getRandTank = function() {
 		default :
 			break;
 	}
-	var tank = NPCTank(header, dir);
+	var tank = NPCTank(heart, dir);
 }

@@ -6,9 +6,26 @@
  */
 function NPCTank(header, direction) {
 	Tank.call(this, header, direction);
-
+	this.thread = null;
 
 	this.init = function() {
 		this.draw();
 	}
+}
+NPCTank.prototype.getRandTank = function() {
+	var dir = getRandomNum(37,40);
+	var header = [];
+	switch (dir) {
+		case 37:
+			break;
+		case 38:
+			break;
+		case 39:
+			break;
+		case 40:
+			break;
+		default :
+			break;
+	}
+	var tank = NPCTank(header, dir);
 }

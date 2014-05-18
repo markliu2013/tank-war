@@ -12,3 +12,15 @@ function checkEqual(coordinates1, coordinates2) {
 		return false;
 	}
 }
+
+function randomDir() {
+	var result = getRandomNum(min, max)
+	return result;
+}
+
+function getRandomNum(min, max) {
+	var range = max - min;
+	var rand = Math.random();
+	return (min + Math.round(rand * range));
+}
+

@@ -5,19 +5,28 @@
 	}
 	jQuery.fn = jQuery.prototype = {
 		init: function(selector) {
-			var els;
+			// Handle $(""), $(null), $(undefined), $(false)
+			if ( !selector ) {
+				return this;
+			}
+			// Handle $(DOMElement)
+			if ( selector.nodeType ) {
+				this[0] = selector;
+				this.length = 1;
+				return this;
+			}
 			if (typeof selector === 'string') {
-				els = document.querySelectorAll(selector);
-			} else if (selector.length) {
-				els = selector;
-			} else {
-				els = [selector];
+				if ( selector.charAt(0) === "<" && selector.charAt( selector.length - 1 ) === ">" && selector.length >= 3 ) {
+
+				} else {
+					var els = document.querySelectorAll(selector);
+					for (var i = 0; i < els.length; i++) {
+						this[i] = els[i];
+						this.length = els.length;
+						return this;
+					}
+				}
 			}
-			for (var i = 0; i < els.length; i++) {
-				this[i] = els[i];
-			}
-			this.length = els.length;
-			return this;
 		}
 	}
 	jQuery.fn.init.prototype = jQuery.fn;

@@ -54,6 +54,9 @@ function Tank(heart, direction) {
 		return true;
 	}
 	this.draw = function() {
+		if (!this.status) {
+			return;
+		}
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
 			jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank");
@@ -76,8 +79,11 @@ function Tank(heart, direction) {
 		if (!this.checkValidation()) {
 			this.heart = preHeart;
 			this.direction = preDirection;
+			this.draw();
+			return false;
 		}
 		this.draw();
+		return true;
 	}
 	this.moveUp = function() {
 		var preHeart = this.heart;
@@ -90,8 +96,11 @@ function Tank(heart, direction) {
 		if (!this.checkValidation()) {
 			this.heart = preHeart;
 			this.direction = preDirection;
+			this.draw();
+			return false;
 		}
 		this.draw();
+		return true;
 	}
 	this.moveRight = function() {
 		var preHeart = this.heart;
@@ -104,8 +113,11 @@ function Tank(heart, direction) {
 		if (!this.checkValidation()) {
 			this.heart = preHeart;
 			this.direction = preDirection;
+			this.draw();
+			return false;
 		}
 		this.draw();
+		return true;
 	}
 	this.moveDown = function() {
 		var preHeart = this.heart;
@@ -118,8 +130,11 @@ function Tank(heart, direction) {
 		if (!this.checkValidation()) {
 			this.heart = preHeart;
 			this.direction = preDirection;
+			this.draw();
+			return false;
 		}
 		this.draw();
+		return true;
 	}
 	this.fire = function() {
 		var bulletCoordinate = null;

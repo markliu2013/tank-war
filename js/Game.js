@@ -6,6 +6,8 @@ function Game() {
 	this.status = 1;// 1 stopped  2 running  3 paused
 	this.grid = null;
 	this.tankContainer = null;
+	this.myTank = null;
+
 	this.init = function init() {
 		this.grid = new Grid(gridRowsNum, gridColsNum);
 		this.grid.init();
@@ -14,17 +16,24 @@ function Game() {
 	}
 	this.startNew = function() {
 		this.tankContainer = new TankContainer();
-		var tank = new MyTank([2,2], 40);
-		tank.init();
-		this.tankContainer.tanks.push(tank);
-		var tank2 = new NPCTank([2,gridRowsNum-1], 38);
+		this.myTank = new MyTank([Math.ceil(gridColsNum/2),Math.ceil(gridRowsNum/2)], getRandomNum(37, 40));
+		this.myTank.init();
+		this.tankContainer.tanks.push(this.myTank);
+		var tank2 = NPCTank.getRandTank();
 		tank2.init();
-		tank2.fire();
 		this.tankContainer.tanks.push(tank2);
+		for (var i=0;i<5;i++) {
+			var tank = NPCTank.getRandTank();
+			tank.init();
+			this.tankContainer.tanks.push(tank);
+		}
 		$('#pause-game').removeClass('disabled');
 		$('#stop-game').removeClass('disabled');
 	}
 
+	function npcTank() {
+
+	}
 	function bindControlEvent() {
 		var thisGame = this;
 		$('#start-game').on('click', function(event) {

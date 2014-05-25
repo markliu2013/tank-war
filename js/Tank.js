@@ -158,7 +158,14 @@ function Tank(heart, direction) {
 		if (bullDom.hasClass("on")) {
 			if (bullDom.hasClass("tank")) {
 				var tank = game.tankContainer.checkWhichTank(bulletCoordinate);
-				tank.destroy();
+				if (tank) {
+					tank.destroy();
+					if (tank.constructor == MyTank) {
+						game.stopGame();
+					} else if (this.constructor == MyTank) {
+						game.addScore();
+					}
+				}
 			}
 		} else {
 			var bullet = new Bullet(bulletCoordinate, this.direction, bulletSpeed, this);

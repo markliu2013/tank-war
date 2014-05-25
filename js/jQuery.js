@@ -114,7 +114,19 @@
 			});
 		}
 	};
-
+	jQuery.prototype.val = function (val) {
+		if (typeof val !== 'undefined') {
+			return this.forEach(function (el) {
+				el.value = val;
+			});
+		} else {
+			return this.mapOne(function (el) {
+				if (el.nodeName == 'SELECT') {
+					return el.value;
+				}
+			});
+		}
+	}
 	jQuery.prototype.append = function (els) {
 		return this.forEach(function (parEl, i) {
 			els.forEach(function (childEl) {

@@ -3,6 +3,10 @@ var gridColsNum = 51;
 var bulletSpeed = 20; //the millisecond to move a grid
 var NPCTanksCount = 4;
 var NPCTankSpeed = 500;
+var NPCTankCheckTime = 3000;
+var NPCTankFireTimes = 1;
+var gameStateText = ['Stopped', 'Running', 'Paused'];
+
 
 /**
  * check if the two coordinates is the same
@@ -21,13 +25,8 @@ function getRandomNum(min, max) {
 	return (min + Math.round(rand * range));
 }
 
-function setIntervalX(callback, delay, repetitions, afterCall) {
-	var x = 0;
-	var intervalID = window.setInterval(function () {
-		callback();
-		if (++x === repetitions) {
-			window.clearInterval(intervalID);
-			afterCall();
-		}
-	}, delay);
+function getURLParameter(name) {
+	return decodeURI(
+		(RegExp(name + '=' + '(.+?)(&|$)').exec(location.search)||[,null])[1]
+	);
 }

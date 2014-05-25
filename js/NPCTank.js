@@ -6,7 +6,7 @@
  */
 function NPCTank(heart, direction) {
 	Tank.call(this, heart, direction);
-
+	this.thread = null;
 	this.init = function() {
 		var thisTank = this;
 		thisTank.draw();
@@ -24,16 +24,16 @@ function NPCTank(heart, direction) {
 	}
 
 	this.run = function() {
+		if (game.status != 1) {return;}
 		var thisTank = this;
 		var times = getRandomNum(1, 10);
-		var direction = getRandomNum(37, 42);
-		var thread;
+		var direction = getRandomNum(37, 40+NPCTankFireTimes);
 		switch (direction) {
 			case 37:
 				var i = 0;
-				thread = setInterval(function() {
+				thisTank.thread = setInterval(function() {
 					if (++i === times || thisTank.moveLeft() == false) {
-						clearInterval(thread);
+						clearInterval(thisTank.thread);
 						if (thisTank.status) {
 							thisTank.run();
 						}
@@ -42,9 +42,9 @@ function NPCTank(heart, direction) {
 				break;
 			case 38:
 				var i = 0;
-				thread = setInterval(function() {
+				thisTank.thread = setInterval(function() {
 					if (++i === times || thisTank.moveUp() == false) {
-						clearInterval(thread);
+						clearInterval(thisTank.thread);
 						if (thisTank.status) {
 							thisTank.run();
 						}
@@ -53,9 +53,9 @@ function NPCTank(heart, direction) {
 				break;
 			case 39:
 				var i = 0;
-				thread = setInterval(function() {
+				thisTank.thread = setInterval(function() {
 					if (++i === times || thisTank.moveRight() == false) {
-						clearInterval(thread);
+						clearInterval(thisTank.thread);
 						if (thisTank.status) {
 							thisTank.run();
 						}
@@ -64,9 +64,9 @@ function NPCTank(heart, direction) {
 				break;
 			case 40:
 				var i = 0;
-				thread = setInterval(function() {
+				thisTank.thread = setInterval(function() {
 					if (++i === times || thisTank.moveDown() == false) {
-						clearInterval(thread);
+						clearInterval(thisTank.thread);
 						if (thisTank.status) {
 							thisTank.run();
 						}
@@ -106,7 +106,17 @@ NPCTank.getRandTank = function() {
 	var direction = getRandomNum(37,40);
 	var x = getRandomNum(2, gridColsNum-1);
 	var y = getRandomNum(2, gridRowsNum-1);
-	while (jQuery('#tank-grid .row:nth-child('+y+') .col:nth-child('+x+')').hasClass('on')) {
+	while (
+		jQuery('#tank-grid .row:nth-child('+(y-1)+') .col:nth-child('+(x-1)+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+(y-1)+') .col:nth-child('+x+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+(y-1)+') .col:nth-child('+(x+1)+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+y+') .col:nth-child('+(x-1)+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+y+') .col:nth-child('+x+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+y+') .col:nth-child('+(x+1)+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+(y+1)+') .col:nth-child('+(x-1)+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+(y+1)+') .col:nth-child('+x+')').hasClass('on') ||
+		jQuery('#tank-grid .row:nth-child('+(y+1)+') .col:nth-child('+(x+1)+')').hasClass('on')
+	) {
 		x = getRandomNum(2, gridColsNum-1);
 		y = getRandomNum(2, gridRowsNum-1);
 	}

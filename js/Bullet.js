@@ -42,6 +42,11 @@ function Bullet(coordinate, direction, speed, tank) {
 				var tank = game.tankContainer.checkWhichTank(this.coordinate);
 				if (tank) {
 					tank.destroy();
+					if (tank.constructor == MyTank) {
+						game.stopGame();
+					} else if (this.tank.constructor == MyTank) {
+						game.addScore();
+					}
 				}
 				preBullDome.removeClass("on").removeClass("bull");
 				if (this.tank.constructor == MyTank) {

@@ -154,9 +154,9 @@ function Tank(heart, direction) {
 			default :
 				bulletCoordinate = [this.heart[0]-2,this.heart[1]];
 		}
-		var bullDom = jQuery("#tank-grid .row:nth-child("+bulletCoordinate[1]+") .col:nth-child("+bulletCoordinate[0]+")");
-		if (bullDom.hasClass("on")) {
-			if (bullDom.hasClass("tank")) {
+		var bullDom = jQuery('#tank-grid .row:nth-child('+bulletCoordinate[1]+') .col:nth-child('+bulletCoordinate[0]+')');
+		if (bullDom.hasClass('on')) {
+			if (bullDom.hasClass('tank')) {
 				var tank = game.tankContainer.checkWhichTank(bulletCoordinate);
 				if (tank) {
 					tank.destroy();

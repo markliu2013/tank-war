@@ -15,9 +15,9 @@ function Bullet(coordinate, direction, speed, tank) {
 	this.status = true;// alive or die, true is alive, false is die.
 
 	this.init = function() {
-		jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").addClass("on bull");
+		jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')').addClass('on bull');
 		if (this.tank.constructor == MyTank) {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").addClass("my");
+			jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')').addClass('my');
 		}
 		var thisBullet = this;
 		switch (thisBullet.direction) {
@@ -37,8 +37,8 @@ function Bullet(coordinate, direction, speed, tank) {
 	}
 
 	function moveCheck(nextBullDome, preBullDome) {
-		if (nextBullDome.hasClass("on")) {
-			if (nextBullDome.hasClass("tank")) {
+		if (nextBullDome.hasClass('on')) {
+			if (nextBullDome.hasClass('tank')) {
 				var tank = game.tankContainer.checkWhichTank(this.coordinate);
 				if (tank) {
 					tank.destroy();
@@ -48,30 +48,30 @@ function Bullet(coordinate, direction, speed, tank) {
 						game.addScore();
 					}
 				}
-				preBullDome.removeClass("on").removeClass("bull");
+				preBullDome.removeClass('on').removeClass('bull');
 				if (this.tank.constructor == MyTank) {
-					preBullDome.removeClass("my");
+					preBullDome.removeClass('my');
 				}
 				this.destroy();
-			} else if (nextBullDome.hasClass("bull")) {
-				if (nextBullDome.hasClass("stopped")) {
-					preBullDome.removeClass("on").removeClass("bull");
+			} else if (nextBullDome.hasClass('bull')) {
+				if (nextBullDome.hasClass('stopped')) {
+					preBullDome.removeClass('on').removeClass('bull');
 					if (this.tank.constructor == MyTank) {
-						preBullDome.removeClass("my");
+						preBullDome.removeClass('my');
 					}
 					this.destroy();
 				} else {
-					preBullDome.addClass("stopped");
+					preBullDome.addClass('stopped');
 					clearInterval(this.moveThread);
 					this.status = false;
 				}
 			}
 		} else {
-			preBullDome.removeClass("on").removeClass("bull");
-			nextBullDome.addClass("on bull");
+			preBullDome.removeClass('on').removeClass('bull');
+			nextBullDome.addClass('on bull');
 			if (this.tank.constructor == MyTank) {
-				preBullDome.removeClass("my");
-				nextBullDome.addClass("my");
+				preBullDome.removeClass('my');
+				nextBullDome.addClass('my');
 			}
 		}
 	}
@@ -82,9 +82,9 @@ function Bullet(coordinate, direction, speed, tank) {
 			return;
 		}
 		var preCoordinate = this.coordinate;
-		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		var preBullDome = jQuery('#tank-grid .row:nth-child('+preCoordinate[1]+') .col:nth-child('+preCoordinate[0]+')');
 		this.coordinate = [this.coordinate[0], this.coordinate[1]-1];
-		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		var nextBullDome = jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')');
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveDown() {
@@ -93,9 +93,9 @@ function Bullet(coordinate, direction, speed, tank) {
 			return;
 		}
 		var preCoordinate = this.coordinate;
-		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		var preBullDome = jQuery('#tank-grid .row:nth-child('+preCoordinate[1]+') .col:nth-child('+preCoordinate[0]+')');
 		this.coordinate = [this.coordinate[0], this.coordinate[1]+1];
-		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		var nextBullDome = jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')');
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveLeft() {
@@ -104,9 +104,9 @@ function Bullet(coordinate, direction, speed, tank) {
 			return;
 		}
 		var preCoordinate = this.coordinate;
-		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		var preBullDome = jQuery('#tank-grid .row:nth-child('+preCoordinate[1]+') .col:nth-child('+preCoordinate[0]+')');
 		this.coordinate = [this.coordinate[0]-1, this.coordinate[1]];
-		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		var nextBullDome = jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')');
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 	function moveRight() {
@@ -115,17 +115,17 @@ function Bullet(coordinate, direction, speed, tank) {
 			return;
 		}
 		var preCoordinate = this.coordinate;
-		var preBullDome = jQuery("#tank-grid .row:nth-child("+preCoordinate[1]+") .col:nth-child("+preCoordinate[0]+")");
+		var preBullDome = jQuery('#tank-grid .row:nth-child('+preCoordinate[1]+') .col:nth-child('+preCoordinate[0]+')');
 		this.coordinate = [this.coordinate[0]+1, this.coordinate[1]];
-		var nextBullDome = jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")");
+		var nextBullDome = jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')');
 		moveCheck.call(this, nextBullDome, preBullDome);
 	}
 
 	this.destroy = function() {
 		clearInterval(this.moveThread);
-		jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("on").removeClass("bull");
+		jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')').removeClass('on').removeClass('bull');
 		if (this.tank.constructor == MyTank) {
-			jQuery("#tank-grid .row:nth-child("+this.coordinate[1]+") .col:nth-child("+this.coordinate[0]+")").removeClass("my");
+			jQuery('#tank-grid .row:nth-child('+this.coordinate[1]+') .col:nth-child('+this.coordinate[0]+')').removeClass('my');
 		}
 		this.status = false;
 	}

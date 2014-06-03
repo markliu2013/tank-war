@@ -52,7 +52,7 @@ function Game() {
 				addNPCTank.call(thisGame);
 			}
 		}, NPCTankCheckTime);
-		$("#game-state").text(gameStateText[thisGame.status]);
+		$('#game-state').text(gameStateText[thisGame.status]);
 	}
 
 	this.pauseGame = function() {
@@ -65,7 +65,7 @@ function Game() {
 		this.myTank.offKey();
 		$('#pause-game').text('继续');
 		$('#pause-game').addClass('paused');
-		$("#game-state").text(gameStateText[this.status]);
+		$('#game-state').text(gameStateText[this.status]);
 	}
 
 	this.stopGame = function() {
@@ -77,7 +77,7 @@ function Game() {
 		}
 		this.myTank.offKey();
 		$('#pause-game').addClass('disabled');
-		$("#game-state").text(gameStateText[this.status]);
+		$('#game-state').text(gameStateText[this.status]);
 	}
 
 	this.addScore = function() {
@@ -101,7 +101,7 @@ function Game() {
 		this.myTank.keyBoardControl();
 		$('#pause-game').text('暂停');
 		$('#pause-game').removeClass('paused');
-		$("#game-state").text(gameStateText[thisGame.status]);
+		$('#game-state').text(gameStateText[thisGame.status]);
 	}
 
 	function addNPCTank() {
@@ -121,10 +121,10 @@ function Game() {
 			return false;
 		});
 		$('#pause-game').on('click', function(event) {
-			if ($(this).hasClass("disabled")) {
+			if ($(this).hasClass('disabled')) {
 				return false;
 			}
-			if ($(this).hasClass("paused")) {
+			if ($(this).hasClass('paused')) {
 				thisGame.continueGame();
 			} else {
 				thisGame.pauseGame();

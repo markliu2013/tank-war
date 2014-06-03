@@ -52,11 +52,19 @@
 	jQuery.prototype.text = function (text) {
 		if (typeof text !== "undefined") {
 			return this.forEach(function (el) {
-				el.innerText = text;
+				if (el.innerText) {
+					el.innerText = text;
+				} else if (el.textContent) {
+					el.textContent = text;
+				}
 			});
 		} else {
 			return this.mapOne(function (el) {
-				return el.innerText;
+				if (el.innerText) {
+					return el.innerText;
+				} else if (el.textContent) {
+					return el.textContent;
+				}
 			});
 		}
 	};

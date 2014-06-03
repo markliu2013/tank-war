@@ -10,13 +10,13 @@ function MyTank(heart, direction) {
 	this.draw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			jQuery("#tank-grid .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").addClass("on tank my");
+			jQuery('#tank-grid .row:nth-child('+dataArr[i][1]+') .col:nth-child('+dataArr[i][0]+')').addClass('on tank my');
 		}
 	}
 	this.removeDraw = function() {
 		var dataArr = this.getDataArr();
 		for(var i=0; i<dataArr.length; i++) {
-			jQuery("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on").removeClass("tank").removeClass("my");
+			jQuery('#tank-grid  .row:nth-child('+dataArr[i][1]+') .col:nth-child('+dataArr[i][0]+')').removeClass('on').removeClass('tank').removeClass('my');
 		}
 	}
 
@@ -43,8 +43,8 @@ function MyTank(heart, direction) {
 	}
 	this.keyBoardControl = function() {
 		var thisTank = this;
-		jQuery(document).on("keydown", thisTank.moveByKey);
-		jQuery(document).on("keyup", thisTank.fireByKey);
+		jQuery(document).on('keydown', thisTank.moveByKey);
+		jQuery(document).on('keyup', thisTank.fireByKey);
 	}
 	this.offKey = function() {
 		var thisTank = this;

@@ -12,20 +12,32 @@ function Game() {
 	this.score = 0;
 
 	this.init = function init() {
-		var config = this.getConfig();
-		jQuery('#select-gridRowNum').val(config.gridRowsNum);
-		jQuery('#select-gridColNum').val(config.gridColsNum);
-		jQuery('#select-bullet-speed').val(config.bulletSpeed);
-		jQuery('#select-npctank-count').val(config.NPCTanksCount);
-		jQuery('#select-npctank-speed').val(config.NPCTankSpeed);
-		jQuery('#select-npctank-time').val(config.NPCTankCheckTime);
-		jQuery('#select-npctank-fire').val(config.NPCTankFireTimes);
+		var thisGame = this;
+		this.loadConfig();
 		gridRowsNum = parseInt(jQuery('#select-gridRowNum').val());
 		gridColsNum = parseInt(jQuery('#select-gridColNum').val());
-		this.grid = new Grid(gridRowsNum, gridColsNum);
-		this.grid.init();
-		bindControlEvent.call(this);
-		this.startNew();
+		bulletSpeed = parseInt($('#select-bullet-speed').val());
+		NPCTanksCount = parseInt($('#select-npctank-count').val());
+		NPCTankSpeed = parseInt($('#select-npctank-speed').val());
+		NPCTankCheckTime = parseInt($('#select-npctank-time').val());
+		NPCTankFireTimes = parseInt($('#select-npctank-fire').val());
+		thisGame.status = 1;
+		thisGame.grid = new Grid(gridRowsNum, gridColsNum);
+		thisGame.grid.init();
+		bindControlEvent.call(thisGame);
+		thisGame.tankContainer = new TankContainer();
+		thisGame.myTank = new MyTank([Math.ceil(gridColsNum/2),Math.ceil(gridRowsNum/2)], getRandomNum(37, 40));
+		thisGame.myTank.init();
+		thisGame.tankContainer.tanks.push(this.myTank);
+		addNPCTank.call(thisGame);
+		jQuery('#pause-game').removeClass('disabled');
+		jQuery('#reset-game').removeClass('disabled');
+		thisGame.thread = setInterval(function() {
+			if (thisGame.tankContainer.tanks.length-1 < NPCTanksCount) {
+				addNPCTank.call(thisGame);
+			}
+		}, NPCTankCheckTime);
+		$('#game-state').text(gameStateText[thisGame.status]);
 	}
 	this.startNew = function() {
 		var thisGame = this;
@@ -36,21 +48,30 @@ function Game() {
 		NPCTankSpeed = parseInt($('#select-npctank-speed').val());
 		NPCTankCheckTime = parseInt($('#select-npctank-time').val());
 		NPCTankFireTimes = parseInt($('#select-npctank-fire').val());
+		saveConfigAsLocalStorage();
 		thisGame.status = 1;
-		thisGame.grid = new Grid(gridRowsNum, gridColsNum);
-		thisGame.grid.init();
-		thisGame.tankContainer = new TankContainer();
-		thisGame.myTank = new MyTank([Math.ceil(gridColsNum/2),Math.ceil(gridRowsNum/2)], getRandomNum(37, 40));
-		thisGame.myTank.init();
-		thisGame.tankContainer.tanks.push(this.myTank);
-		var npcTank = NPCTank.getRandTank();
-		npcTank.init();
-		this.tankContainer.tanks.push(npcTank);
+		thisGame.score = 0;
+		jQuery('#score-num').text(this.score);
+		thisGame.grid.rowsNum = gridRowsNum;
+		thisGame.grid.colsNum = gridColsNum;
+		thisGame.grid.draw();
+		for (var i=0; i<thisGame.tankContainer.tanks.length; i++) {
+			var tank = thisGame.tankContainer.tanks[i];
+			tank.destroy();
+		}
+		thisGame.tankContainer.tanks.length = 0;
+		thisGame.myTank.reset();
+		thisGame.myTank.keyBoardControl();
+		thisGame.tankContainer.tanks.push(thisGame.myTank);
+		addNPCTank.call(thisGame);
 		$('#pause-game').removeClass('disabled');
+		$('#reset-game').removeClass('disabled');
+		clearInterval(thisGame.thread);
 		thisGame.thread = setInterval(function() {
 			if (thisGame.tankContainer.tanks.length-1 < NPCTanksCount) {
 				addNPCTank.call(thisGame);
 			}
+
 		}, NPCTankCheckTime);
 		$('#game-state').text(gameStateText[thisGame.status]);
 	}
@@ -112,12 +133,7 @@ function Game() {
 	function bindControlEvent() {
 		var thisGame = this;
 		$('#start-game').on('click', function(event) {
-			if (localStorage) {
-				saveConfigAsLocalStorage();
-			} else {
-
-			}
-			window.location.reload();
+			thisGame.startNew();
 			return false;
 		});
 		$('#pause-game').on('click', function(event) {
@@ -130,6 +146,10 @@ function Game() {
 				thisGame.pauseGame();
 			}
 			return false;
+		});
+		jQuery('#reset-game').on('click', function(event) {
+			thisGame.resetConfig();
+			thisGame.startNew();
 		});
 	}
 
@@ -164,6 +184,28 @@ function Game() {
 		result.NPCTankCheckTime = localStorage.getItem('NPCTankCheckTime') || NPCTankCheckTime;
 		result.NPCTankFireTimes = localStorage.getItem('NPCTankFireTimes') || NPCTankFireTimes;
 		return result;
+	}
+
+	this.resetConfig = function() {
+		localStorage.setItem('gridRowsNum', 51);
+		localStorage.setItem('gridColsNum', 51);
+		localStorage.setItem('bulletSpeed', 20);
+		localStorage.setItem('NPCTanksCount', 4);
+		localStorage.setItem('NPCTankSpeed', 500);
+		localStorage.setItem('NPCTankCheckTime', 3000);
+		localStorage.setItem('NPCTankFireTimes', 1);
+		this.loadConfig();
+	}
+
+	this.loadConfig = function() {
+		var config = this.getConfig();
+		jQuery('#select-gridRowNum').val(config.gridRowsNum);
+		jQuery('#select-gridColNum').val(config.gridColsNum);
+		jQuery('#select-bullet-speed').val(config.bulletSpeed);
+		jQuery('#select-npctank-count').val(config.NPCTanksCount);
+		jQuery('#select-npctank-speed').val(config.NPCTankSpeed);
+		jQuery('#select-npctank-time').val(config.NPCTankCheckTime);
+		jQuery('#select-npctank-fire').val(config.NPCTankFireTimes);
 	}
 
 }

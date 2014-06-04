@@ -55,4 +55,11 @@ function MyTank(heart, direction) {
 		this.draw();
 		this.keyBoardControl();
 	}
+	this.reset = function() {
+		this.heart = [Math.ceil(gridColsNum/2),Math.ceil(gridRowsNum/2)];
+		this.direction = getRandomNum(37, 40);
+		this.status = true;
+		this.removeDraw();
+		this.draw();
+	}
 }

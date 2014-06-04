@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON('package.json'),
 		concat: {
 			master : {
-				src: ['js/dome.js', 'js/util.js', 'js/grid.js', 'js/tank.js', 'js/main.js'],
+				src: ['js/jQuery.js','js/util.js','js/Grid.js','js/Bullet.js','js/Tank.js','js/NPCTank.js','js/MyTank.js','js/TankContainer.js','js/Game.js'],
 				dest: 'dest/master.js'
 			}
 		},

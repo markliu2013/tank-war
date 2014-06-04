@@ -64,8 +64,8 @@ function Game() {
 		thisGame.myTank.keyBoardControl();
 		thisGame.tankContainer.tanks.push(thisGame.myTank);
 		addNPCTank.call(thisGame);
-		$('#pause-game').removeClass('disabled');
-		$('#reset-game').removeClass('disabled');
+		jQuery('#pause-game').removeClass('disabled');
+		jQuery('#reset-game').removeClass('disabled');
 		clearInterval(thisGame.thread);
 		thisGame.thread = setInterval(function() {
 			if (thisGame.tankContainer.tanks.length-1 < NPCTanksCount) {
@@ -73,7 +73,7 @@ function Game() {
 			}
 
 		}, NPCTankCheckTime);
-		$('#game-state').text(gameStateText[thisGame.status]);
+		jQuery('#game-state').text(gameStateText[thisGame.status]);
 	}
 
 	this.pauseGame = function() {
@@ -84,9 +84,9 @@ function Game() {
 			clearInterval(tank.thread);
 		}
 		this.myTank.offKey();
-		$('#pause-game').text('继续');
-		$('#pause-game').addClass('paused');
-		$('#game-state').text(gameStateText[this.status]);
+		jQuery('#pause-game').text('继续');
+		jQuery('#pause-game').addClass('paused');
+		jQuery('#game-state').text(gameStateText[this.status]);
 	}
 
 	this.stopGame = function() {
@@ -97,8 +97,8 @@ function Game() {
 			clearInterval(tank.thread);
 		}
 		this.myTank.offKey();
-		$('#pause-game').addClass('disabled');
-		$('#game-state').text(gameStateText[this.status]);
+		jQuery('#pause-game').addClass('disabled');
+		jQuery('#game-state').text(gameStateText[this.status]);
 	}
 
 	this.addScore = function() {
@@ -120,9 +120,9 @@ function Game() {
 			}
 		}
 		this.myTank.keyBoardControl();
-		$('#pause-game').text('暂停');
-		$('#pause-game').removeClass('paused');
-		$('#game-state').text(gameStateText[thisGame.status]);
+		jQuery('#pause-game').text('暂停');
+		jQuery('#pause-game').removeClass('paused');
+		jQuery('#game-state').text(gameStateText[thisGame.status]);
 	}
 
 	function addNPCTank() {
@@ -132,15 +132,15 @@ function Game() {
 	}
 	function bindControlEvent() {
 		var thisGame = this;
-		$('#start-game').on('click', function(event) {
+		jQuery('#start-game').on('click', function(event) {
 			thisGame.startNew();
 			return false;
 		});
-		$('#pause-game').on('click', function(event) {
-			if ($(this).hasClass('disabled')) {
+		jQuery('#pause-game').on('click', function(event) {
+			if (jQuery(this).hasClass('disabled')) {
 				return false;
 			}
-			if ($(this).hasClass('paused')) {
+			if (jQuery(this).hasClass('paused')) {
 				thisGame.continueGame();
 			} else {
 				thisGame.pauseGame();

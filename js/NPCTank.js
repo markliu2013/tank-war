@@ -27,79 +27,25 @@ function NPCTank(heart, direction) {
 		if (game.status != 1) {return;}
 		var thisTank = this;
 		var times = getRandomNum(1, 10);
-		var direction = getRandomNum(37, 40+NPCTankFireTimes);
-		switch (direction) {
-			case 37:
-				var i = 0;
-				thisTank.thread = setInterval(function() {
-					if (++i === times || thisTank.moveLeft() == false) {
-						clearInterval(thisTank.thread);
-						if (thisTank.status) {
-							thisTank.run();
-						}
+		var direction = getRandomNum(37, 40+NPCTankFireTimes);//随机生成的指令，不仅是方向，还包括fire
+		if (direction == 37 || direction == 38 || direction == 39 || direction == 40) {
+			var i = 0;
+			thisTank.thread = setInterval(function() {
+				if (++i === times || thisTank.move(direction) == false) {
+					clearInterval(thisTank.thread);
+					if (thisTank.status) {
+						thisTank.run();
 					}
-				}, NPCTankSpeed);
-				break;
-			case 38:
-				var i = 0;
-				thisTank.thread = setInterval(function() {
-					if (++i === times || thisTank.moveUp() == false) {
-						clearInterval(thisTank.thread);
-						if (thisTank.status) {
-							thisTank.run();
-						}
-					}
-				}, NPCTankSpeed);
-				break;
-			case 39:
-				var i = 0;
-				thisTank.thread = setInterval(function() {
-					if (++i === times || thisTank.moveRight() == false) {
-						clearInterval(thisTank.thread);
-						if (thisTank.status) {
-							thisTank.run();
-						}
-					}
-				}, NPCTankSpeed);
-				break;
-			case 40:
-				var i = 0;
-				thisTank.thread = setInterval(function() {
-					if (++i === times || thisTank.moveDown() == false) {
-						clearInterval(thisTank.thread);
-						if (thisTank.status) {
-							thisTank.run();
-						}
-					}
-				}, NPCTankSpeed);
-				break;
-			default :
-				thisTank.fire();
-				if (thisTank.status) {
-					thisTank.run();
 				}
-				break;
+			}, NPCTankSpeed);
+		} else {
+			thisTank.fire();
+			if (thisTank.status) {
+				thisTank.run();
+			}
 		}
 	}
 
-	this.move = function(direction) {
-		switch (direction) {
-			case 37:
-				this.moveLeft();
-				break;
-			case 38:
-				this.moveUp();
-				break;
-			case 39:
-				this.moveRight();
-				break;
-			case 40:
-				this.moveDown();
-				break;
-			default :
-				this.moveLeft();
-		}
-	}
 }
 
 NPCTank.getRandTank = function() {

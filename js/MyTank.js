@@ -21,17 +21,8 @@ function MyTank(heart, direction) {
 	}
 
 	this.moveByKey = function(event) {
-		if (event.keyCode == 37) { //left
-			thisTank.moveLeft();
-			event.preventDefault();
-		} else if (event.keyCode == 38) { //up
-			thisTank.moveUp();
-			event.preventDefault();
-		} else if (event.keyCode == 39) { //right
-			thisTank.moveRight();
-			event.preventDefault();
-		} else if (event.keyCode == 40) { //down
-			thisTank.moveDown();
+		if (event.keyCode == 37 || event.keyCode == 38 || event.keyCode == 39  || event.keyCode == 40 ) {
+			thisTank.move(event.keyCode);
 			event.preventDefault();
 		}
 	}

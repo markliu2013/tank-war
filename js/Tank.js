@@ -68,64 +68,26 @@ function Tank(heart, direction) {
 			jQuery("#tank-grid  .row:nth-child("+dataArr[i][1]+") .col:nth-child("+dataArr[i][0]+")").removeClass("on").removeClass("tank");
 		}
 	}
-	this.moveLeft = function() {
+	this.move = function(direction) {
 		var preHeart = this.heart;
 		var preDirection = this.direction;
 		this.removeDraw();
-		this.direction = 37;
-		if (preDirection == 37) {
-			this.heart = [preHeart[0]-1, preHeart[1]];
-		}
-		if (!this.checkValidation()) {
-			this.heart = preHeart;
-			this.direction = preDirection;
-			this.draw();
-			return false;
-		}
-		this.draw();
-		return true;
-	}
-	this.moveUp = function() {
-		var preHeart = this.heart;
-		var preDirection = this.direction;
-		this.removeDraw();
-		this.direction = 38;
-		if (preDirection == 38) {
-			this.heart = [preHeart[0], preHeart[1]-1];
-		}
-		if (!this.checkValidation()) {
-			this.heart = preHeart;
-			this.direction = preDirection;
-			this.draw();
-			return false;
-		}
-		this.draw();
-		return true;
-	}
-	this.moveRight = function() {
-		var preHeart = this.heart;
-		var preDirection = this.direction;
-		this.removeDraw();
-		this.direction = 39;
-		if (preDirection == 39) {
-			this.heart = [preHeart[0]+1, preHeart[1]];
-		}
-		if (!this.checkValidation()) {
-			this.heart = preHeart;
-			this.direction = preDirection;
-			this.draw();
-			return false;
-		}
-		this.draw();
-		return true;
-	}
-	this.moveDown = function() {
-		var preHeart = this.heart;
-		var preDirection = this.direction;
-		this.removeDraw();
-		this.direction = 40;
-		if (preDirection == 40) {
-			this.heart = [preHeart[0], preHeart[1]+1];
+		this.direction = direction;
+		if (preDirection = direction) {
+			switch (direction) {
+				case 37:
+					this.heart = [preHeart[0]-1, preHeart[1]];
+					break;
+				case 38:
+					this.heart = [preHeart[0], preHeart[1]-1];
+					break;
+				case 39:
+					this.heart = [preHeart[0]+1, preHeart[1]];
+					break;
+				case 40:
+					this.heart = [preHeart[0], preHeart[1]+1];
+					break;
+			}
 		}
 		if (!this.checkValidation()) {
 			this.heart = preHeart;

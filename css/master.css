@@ -97,6 +97,7 @@ h2 {
 	color: #fff;
 	border-radius: 5px;
 	text-decoration: none;
+	cursor: pointer;
 }
 #control-panel .buttons .btn.disabled {
 	background: #333;

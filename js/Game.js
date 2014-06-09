@@ -134,6 +134,7 @@ function Game() {
 		var thisGame = this;
 		jQuery('#start-game').on('click', function(event) {
 			thisGame.startNew();
+			event.preventDefault();
 			return false;
 		});
 		jQuery('#pause-game').on('click', function(event) {
@@ -145,11 +146,14 @@ function Game() {
 			} else {
 				thisGame.pauseGame();
 			}
+			event.preventDefault();
 			return false;
 		});
 		jQuery('#reset-game').on('click', function(event) {
 			thisGame.resetConfig();
 			thisGame.startNew();
+			event.preventDefault();
+			return false;
 		});
 	}
 

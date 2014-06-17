@@ -11,7 +11,7 @@
 		<div id="tank-grid"></div>
 		<div id="control-panel">
 			<h2 id="game-state">Stopped</h2>
-			<div class="row score clearfix"><span>分数: </span><strong id="score-num">0</strong></div>
+			<div class="row score clearfix"><span>Score: </span><strong id="score-num">0</strong></div>
 			<div class="row">
 				<select id="select-gridRowNum">
 					<option value="31">31</option>
@@ -19,7 +19,7 @@
 					<option value="51" selected="selected">51</option>
 					<option value="61">61</option>
 				</select>
-				<span>行</span>
+				<span>Rows</span>
 				<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
 				<select id="select-gridColNum">
 					<option value="31">31</option>
@@ -27,10 +27,10 @@
 					<option value="51" selected="selected">51</option>
 					<option value="61">61</option>
 				</select>
-				<span>列</span>
+				<span>Columns</span>
 			</div>
 			<div class="row">
-				<span>子弹速度</span>
+				<span>Speed of Bullet</span>
 				<select id="select-bullet-speed">
 					<option value="500">1</option>
 					<option value="200">2</option>
@@ -39,10 +39,10 @@
 					<option value="20" selected="selected">5</option>
 					<option value="10">6</option>
 				</select>
-				<span>档</span>
+				<span>Level</span>
 			</div>
 			<div class="row">
-				<span>敌方坦克数量</span>
+				<span>Qty of Enemies</span>
 				<select id="select-npctank-count">
 					<option value="1">1</option>
 					<option value="2">2</option>
@@ -54,7 +54,7 @@
 				</select>
 			</div>
 			<div class="row">
-				<span>敌方坦克速度</span>
+				<span>Speed of Enemies</span>
 				<select id="select-npctank-speed">
 					<option value="3000">1</option>
 					<option value="2000">2</option>
@@ -63,10 +63,10 @@
 					<option value="300">5</option>
 					<option value="100">6</option>
 				</select>
-				<span>档</span>
+				<span>Level</span>
 			</div>
 			<div class="row">
-				<span>敌方坦克复活时间</span>
+				<span>Recycle Time of Enemies</span>
 				<select id="select-npctank-time">
 					<option value="1000">1</option>
 					<option value="2000">2</option>
@@ -74,10 +74,10 @@
 					<option value="4000">4</option>
 					<option value="5000">5</option>
 				</select>
-				<span>秒</span>
+				<span>Seconds</span>
 			</div>
 			<div class="row">
-				<span>敌方坦克发射子弹频率</span>
+				<span>How Often does Enemies Fire</span>
 				<select id="select-npctank-fire">
 					<option value="0">0</option>
 					<option value="1" selected="selected">1</option>
@@ -87,16 +87,16 @@
 					<option value="5">5</option>
 					<option value="6">6</option>
 				</select>
-				<span>档</span>
+				<span>Level</span>
 			</div>
 			<div class="row buttons clearfix">
-				<a id="start-game" class="btn">新游戏</a>
-				<a id="pause-game" class="btn disabled">暂停</a>
-				<a id="reset-game" class="btn disabled">重置</a>
+				<a id="start-game" class="btn">New</a>
+				<a id="pause-game" class="btn disabled">Pause</a>
+				<a id="reset-game" class="btn disabled">Reset</a>
 			</div>
-			<p>注意：方向键控制坦克移动，空格键发射子弹</p>
+			<p>Tips: Arrow key to move tank, space key to fire.</p>
 			<p>Written by Mark Liu. <a href="http://www.markliublog.com/" target="_blank">http://www.markliublog.com/</a></p>
-			<p style="color: red;">最好用Chrome，千万别用IE8-</p>
+			<p style="color: red;">Chrome is the Best，We don't support IE8-</p>
 		</div><!-- end control-panel -->
 	</div><!-- end page -->
 	<script src="js/jQuery.js"></script>

@@ -84,7 +84,7 @@ function Game() {
 			clearInterval(tank.thread);
 		}
 		this.myTank.offKey();
-		jQuery('#pause-game').text('继续');
+		jQuery('#pause-game').text('Continue');
 		jQuery('#pause-game').addClass('paused');
 		jQuery('#game-state').text(gameStateText[this.status]);
 	}
@@ -120,7 +120,7 @@ function Game() {
 			}
 		}
 		this.myTank.keyBoardControl();
-		jQuery('#pause-game').text('暂停');
+		jQuery('#pause-game').text('Pause');
 		jQuery('#pause-game').removeClass('paused');
 		jQuery('#game-state').text(gameStateText[thisGame.status]);
 	}

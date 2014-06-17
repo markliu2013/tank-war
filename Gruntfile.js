@@ -15,9 +15,19 @@ module.exports = function(grunt) {
 				src : 'dest/master.js',
 				dest : 'dest/master.min.js'
 			}
+		},
+		cssmin: {
+			minify: {
+				expand: true,
+				cwd: 'css/',
+				src: ['*.css', '!*.min.css'],
+				dest: 'dest/',
+				ext: '.min.css'
+			}
 		}
 	});
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.registerTask('default', ['concat', 'uglify']);
+	grunt.loadNpmTasks('grunt-contrib-cssmin');
+	grunt.registerTask('default', ['concat', 'uglify', 'cssmin']);
 };

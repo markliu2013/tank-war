@@ -8,7 +8,7 @@ function Tank(heart, direction) {
 	this.heart = heart;
 	this.direction = direction;
 	this.status = true;// alive or die, true is alive, false is die.
-	//根据中心和方向计算坦克所占的格子
+	// Calculator the accordions base on the heart and direction
 	this.getDataArr = function() {
 		var dataArr = [this.heart];
 		if (this.direction == 37) { //left

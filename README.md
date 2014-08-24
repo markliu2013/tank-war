@@ -3,6 +3,7 @@
 This is a Tank War Game written use JavaScript.
 Read the [blog article](http://www.markliublog.com/js-tankwar.html) about how it works or [try to play](http://www.markliublog.com/c/tankwar/index.html).
 If you have any suggestion or bug to post, [click here](https://github.com/markliu2013/tank-war/issues/new).
+I built my own [jQuery library](https://github.com/markliu2013/tank-war/blob/master/js/jQuery.js) in this project. [How to build your own js library?](http://net.tutsplus.com/tutorials/javascript-ajax/build-your-first-javascript-library/)
 
 ## Install
 This is only static html files, it is very easy to install. You don't even need a web server like apache or tomcat to run.

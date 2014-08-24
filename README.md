@@ -1,12 +1,12 @@
 # JavaScript Tank War Game
 
 This is a Tank War Game written use JavaScript.
-Read the [blog article](http://www.markliublog.com/js-tankwar.html) about how it works or [try the game](http://www.markliublog.com/c/tankwar/index.html).
-If you have any suggestion or bug to post, [click here](https://github.com/markliu2013/tank-war/issues).
+Read the [blog article](http://www.markliublog.com/js-tankwar.html) about how it works or [try to play](http://www.markliublog.com/c/tankwar/index.html).
+If you have any suggestion or bug to post, [click here](https://github.com/markliu2013/tank-war/issues/new).
 
 ## Install
 This is only static html files, it is very easy to install. You don't even need a web server like apache or tomcat to run.
-Just [download](https://github.com/madhums/node-express-mongoose-demo/archive/master.zip) the files, open index.html with your browser application, we suggest [chrome](https://www.google.com/chrome/browser/).
+Just [download](https://github.com/markliu2013/tank-war/archive/master.zip) the files, open index.html with your browser application, we suggest [Chrome](https://www.google.com/chrome/browser/).
 
 ## License
 (The MIT License)

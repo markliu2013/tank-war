@@ -5,49 +5,52 @@
  * @constructor
  */
 function NPCTank(heart, direction) {
-	Tank.call(this, heart, direction);
+
+	Tank.apply(this, arguments);
 	this.thread = null;
-	this.init = function() {
-		var thisTank = this;
-		thisTank.draw();
-		thisTank.run();
-	}
-
-	this.attack = function() {
-
-	}
-
-	this.destroy = function() {
-		this.removeDraw();
-		this.status = false;
-		clearInterval(this.thread);
-	}
-
-	this.run = function() {
-		if (game.status != 1) {return;}
-		var thisTank = this;
-		var times = getRandomNum(1, 10);
-		var direction = getRandomNum(37, 40+NPCTankFireTimes);//随机生成的指令，不仅是方向，还包括fire
-		if (direction == 37 || direction == 38 || direction == 39 || direction == 40) {
-			var i = 0;
-			thisTank.thread = setInterval(function() {
-				if (++i === times || thisTank.move(direction) == false) {
-					clearInterval(thisTank.thread);
-					if (thisTank.status) {
-						thisTank.run();
-					}
-				}
-			}, NPCTankSpeed);
-		} else {
-			thisTank.fire();
-			if (thisTank.status) {
-				thisTank.run();
-			}
-		}
-	}
 
 }
 
+NPCTank.prototype = new Tank();
+NPCTank.prototype.constructor = NPCTank;
+
+NPCTank.prototype.init = function() {
+	this.draw();
+	this.run();
+}
+
+NPCTank.prototype.attack = function() {
+
+}
+
+NPCTank.prototype.destroy = function() {
+	this.removeDraw();
+	this.status = false;
+	clearInterval(this.thread);
+}
+
+NPCTank.prototype.run = function() {
+	if (game.status != 1) {return;}
+	var thisTank = this;
+	var times = getRandomNum(1, 10);
+	var direction = getRandomNum(37, 40+NPCTankFireTimes);//随机生成的指令，不仅是方向，还包括fire
+	if (direction == 37 || direction == 38 || direction == 39 || direction == 40) {
+		var i = 0;
+		thisTank.thread = setInterval(function() {
+			if (++i === times || thisTank.move(direction) == false) {
+				clearInterval(thisTank.thread);
+				if (thisTank.status) {
+					thisTank.run();
+				}
+			}
+		}, NPCTankSpeed);
+	} else {
+		thisTank.fire();
+		if (thisTank.status) {
+			thisTank.run();
+		}
+	}
+}
 NPCTank.getRandTank = function() {
 	var direction = getRandomNum(37,40);
 	var x = getRandomNum(2, gridColsNum-1);
@@ -69,3 +72,4 @@ NPCTank.getRandTank = function() {
 	var tank = new NPCTank([x,y], direction);
 	return tank;
 }
+

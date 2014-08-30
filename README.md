@@ -11,7 +11,7 @@ This is only static html files, it is very easy to install. You don't even need 
 Just [download](https://github.com/markliu2013/tank-war/archive/master.zip) the files, open index.html with your browser application, we suggest [Chrome](https://www.google.com/chrome/browser/).
 
 ## Browser Supported
-Your browser should support [document.querySelectorAll](https://developer.mozilla.org/en/docs/Web/API/Document.querySelectorAll):
+Your browser should support [document.querySelectorAll](https://developer.mozilla.org/en/docs/Web/API/Document.querySelectorAll) :
 - [Chrome](https://www.google.com/chrome/browser/)
 - [IE9+](http://www.microsoft.com/en-us/download/internet-explorer-10-details.aspx)
 - [Firefox](https://www.mozilla.org/en-US/firefox/new/)

@@ -80,7 +80,7 @@ Tank.prototype.move = function(direction) {
 	var preDirection = this.direction;
 	this.removeDraw();
 	this.direction = direction;
-	if (preDirection = direction) {
+	if (preDirection == direction) {
 		switch (direction) {
 			case 37:
 				this.heart = [preHeart[0]-1, preHeart[1]];

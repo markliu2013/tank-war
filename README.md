@@ -10,6 +10,14 @@ I built my own [jQuery library](https://github.com/markliu2013/tank-war/blob/mas
 This is only static html files, it is very easy to install. You don't even need a web server like apache or tomcat to run.
 Just [download](https://github.com/markliu2013/tank-war/archive/master.zip) the files, open index.html with your browser application, we suggest [Chrome](https://www.google.com/chrome/browser/).
 
+## Browser Supported
+Your browser should support document.querySelectorAll, most of modern browsers.
+- [Chrome](https://www.google.com/chrome/browser/)
+- [IE9+](http://www.microsoft.com/en-us/download/internet-explorer-10-details.aspx)
+- [Firefox](https://www.mozilla.org/en-US/firefox/new/)
+- [Safari](https://www.apple.com/safari/)
+- [Opera](http://www.opera.com/)
+
 ## License
 (The MIT License)
 

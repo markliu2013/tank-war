@@ -56,7 +56,7 @@ module.exports = function(grunt) {
 					port: 21,
 					authKey: 'key1'
 				},
-				src: 'output',
+				src: '<%= buildPath %>',
 				dest: '/c/tankwar',
 				simple: false
 			}

@@ -6,9 +6,23 @@ If you have any suggestion or bug to post, [click here](https://github.com/markl
 
 I built my own [jQuery library](https://github.com/markliu2013/tank-war/blob/master/js/jQuery.js) in this project. [How to build your own js library?](http://net.tutsplus.com/tutorials/javascript-ajax/build-your-first-javascript-library/)
 
-## Install
+## Installing
 This is only static html files, it is very easy to install. You don't even need a web server like apache or tomcat to run.
 Just [download](https://github.com/markliu2013/tank-war/archive/master.zip) the files, open index.html with your browser application, we suggest [Chrome](https://www.google.com/chrome/browser/).
+
+## Building GruntJS Task
+GruntJS is a JavaScript Task Runner, there are many plugins can help you make your project from development to production.
+I have created a grunt file, contains min css and javascript, change html link, deploy to server.
+How to run GruntJS?
+Firstly, you need install [nodejs >= 0.8.0](http://nodejs.org/download/).
+```sh
+  $ npm install -g grunt-cli
+  $ git clone https://github.com/markliu2013/tank-war.git
+  $ npm install
+  $ grunt #compile all files
+  $ grunt deploy  #compile and deploy
+```
+**NOTE:** You should change the ftp configuration.
 
 ## Browser Supported
 Your browser should support [document.querySelectorAll](https://developer.mozilla.org/en/docs/Web/API/Document.querySelectorAll) :

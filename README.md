@@ -18,6 +18,7 @@ Firstly, you need install [nodejs >= 0.8.0](http://nodejs.org/download/).
 ```sh
   $ npm install -g grunt-cli
   $ git clone https://github.com/markliu2013/tank-war.git
+  $ cd tank-war
   $ npm install
   $ grunt #compile all files
   $ grunt deploy  #compile and deploy

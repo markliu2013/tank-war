@@ -25,6 +25,17 @@ Firstly, you need install [nodejs >= 0.8.0](http://nodejs.org/download/).
 ```
 **NOTE:** You should change the ftp configuration.
 
+Grunt plugin list:
+1. [grunt-contrib-concat]https://www.npmjs.org/package/grunt-contrib-concat
+2. [grunt-contrib-cssmin]https://www.npmjs.org/package/grunt-contrib-cssmin
+3. [grunt-contrib-uglify]https://www.npmjs.org/package/grunt-contrib-uglify
+4. [grunt-processhtml]https://www.npmjs.org/package/grunt-processhtml
+5. [grunt-contrib-htmlmin]https://www.npmjs.org/package/grunt-contrib-htmlmin
+6. [grunt-contrib-clean]https://npmjs.org/package/grunt-contrib-clean
+7. [grunt-contrib-watch]https://www.npmjs.org/package/grunt-contrib-watch
+8. [grunt-ftpush]https://www.npmjs.org/package/grunt-ftpush
+
+
 ## Browser Supported
 Your browser should support [document.querySelectorAll](https://developer.mozilla.org/en/docs/Web/API/Document.querySelectorAll) :
 - [Chrome](https://www.google.com/chrome/browser/)

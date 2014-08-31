@@ -3,19 +3,18 @@
 	"title": "JavaScript Tank War",
 	"description": "The tank war game written by pure JavaScript",
 	"version": "1.0.0",
-	"homepage": "",
-	"keywords": [],
+	"homepage": "http://www.markliublog.com/javascript-tank-game.html",
 	"author": {
 		"name": "Mark Liu",
 		"email": "markliu2013@gmail.com",
-		"url": "www.markliublog.com"
+		"url": "http://www.markliublog.com"
 	},
 	"repository": {
 		"type": "git",
-		"url": ""
+		"url": "https://github.com/markliu2013/tank-war.git"
 	},
 	"bugs": {
-		"url": ""
+		"url": "https://github.com/markliu2013/tank-war/issues"
 	},
 	"licenses": [
 		{
@@ -24,12 +23,14 @@
 		}
 	],
 	"devDependencies": {
-		"grunt": "*",
-		"grunt-contrib-jshint": "*",
-		"grunt-contrib-uglify": "*",
+		"grunt": "~0.4.5",
 		"grunt-contrib-concat": "*",
-		"grunt-contrib-watch": "*",
 		"grunt-contrib-cssmin": "*",
-		"grunt-contrib-copy": "*"
+		"grunt-contrib-uglify": "*",
+		"grunt-processhtml": "*",
+		"grunt-contrib-htmlmin": "*",
+		"grunt-contrib-clean": "*",
+		"grunt-contrib-watch": "*",
+		"grunt-ftpush": "*"
 	}
 }

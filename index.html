@@ -101,6 +101,10 @@
 			<p style="color: red;">We suggest to play with Chrome, IE8- not supported</p>
 		</div><!-- end control-panel -->
 	</div><!-- end page -->
+	<script>
+		try {document.querySelectorAll('html:nth-child(0)')}
+		catch (error) {alert('Your browser is too old, we suggest you the latest Chrome to play!');window.close();}
+	</script>
 	<!-- build:js all.min.js -->
 	<script src="js/jQuery.js"></script>
 	<script src="js/util.js"></script>

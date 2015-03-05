@@ -51,6 +51,12 @@ a:hover {
 	height: 10px;
 	background: #fff;
 }
+#tank-grid .row .col:last-child {
+	margin-right: 0;
+}
+#tank-grid .row:last-child .col {
+	margin-bottom: 0;
+}
 #tank-grid .row .col.on {
 	background: #000;
 }

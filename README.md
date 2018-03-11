@@ -1,7 +1,7 @@
 # JavaScript Tank War Game
 
 This is a Tank War Game written use JavaScript.
-Read the [blog article](http://blog.whlcsj.com/javascript-tank-game.html) about how it works or [try to play](http://blog.whlcsj.com/c/tankwar/index.html).
+Read the [blog article](https://mark.zfwhub.com/javascript-tank-game.html) about how it works or [try to play](https://mark.zfwhub.com/c/tankwar/index.html).
 If you have any suggestion or bug to post, [click here](https://github.com/markliu2013/tank-war/issues/new).
 
 I built my own [jQuery library](https://github.com/markliu2013/tank-war/blob/master/js/jQuery.js) in this project. [How to build your own js library?](http://net.tutsplus.com/tutorials/javascript-ajax/build-your-first-javascript-library/)
